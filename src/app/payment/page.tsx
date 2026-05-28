@@ -13,12 +13,15 @@ import {
   PublicKey, 
   Transaction, 
   SystemProgram, 
-  LAMPORTS_PER_SOL, 
-  clusterApiUrl 
+  LAMPORTS_PER_SOL 
 } from '@solana/web3.js';
 
+// Adresse de destination pour le paiement
 const DESTINATION_WALLET = "5caRrEq62WNwiDuvLUed8QxhqpJgLk11fBH4bHgE7yDG";
 const PAYMENT_AMOUNT_SOL = 0.01;
+
+// Utilisation d'un RPC plus stable. Pour la production, utilisez un fournisseur comme Helius, Alchemy ou QuickNode.
+const RPC_ENDPOINT = "https://api.devnet.solana.com"; // Changé en devnet pour les tests. Remplacez par mainnet pour la version finale.
 
 export default function PaymentPage() {
   const [loading, setLoading] = useState(false);
@@ -47,11 +50,14 @@ export default function PaymentPage() {
     try {
       const provider = (window as any).solana;
       
+      // Connexion au wallet
       const resp = await provider.connect();
       const userPublicKey = resp.publicKey;
 
-      const connection = new Connection(clusterApiUrl('mainnet-beta'), 'confirmed');
+      // Initialisation de la connexion avec le réseau Solana
+      const connection = new Connection(RPC_ENDPOINT, 'confirmed');
 
+      // Création de la transaction
       const transaction = new Transaction().add(
         SystemProgram.transfer({
           fromPubkey: userPublicKey,
@@ -60,13 +66,16 @@ export default function PaymentPage() {
         })
       );
 
-      const { blockhash } = await connection.getLatestBlockhash();
+      // Récupération du blockhash récent
+      const { blockhash } = await connection.getLatestBlockhash('confirmed');
       transaction.recentBlockhash = blockhash;
       transaction.feePayer = userPublicKey;
 
+      // Signature et envoi
       const { signature } = await provider.signAndSendTransaction(transaction);
       
-      await connection.confirmTransaction(signature);
+      // Confirmation de la transaction
+      await connection.confirmTransaction(signature, 'confirmed');
 
       setSuccess(true);
       toast({
@@ -74,11 +83,17 @@ export default function PaymentPage() {
         description: "Votre place dans la waitlist Genesis est désormais sécurisée.",
       });
     } catch (err: any) {
-      console.error(err);
+      console.error('Erreur Solana:', err);
+      
+      let errorMessage = "La transaction a été annulée ou a échoué.";
+      if (err.message?.includes('403')) {
+        errorMessage = "Erreur de connexion au réseau Solana (403). Veuillez réessayer plus tard ou utiliser un VPN.";
+      }
+
       toast({
         variant: "destructive",
         title: "Erreur de transaction",
-        description: err.message || "La transaction a été annulée ou a échoué.",
+        description: errorMessage,
       });
     } finally {
       setLoading(false);
@@ -163,6 +178,7 @@ export default function PaymentPage() {
               <span className="block font-code text-[10px] uppercase tracking-widest text-primary mb-2">Frais d'Activation Genesis</span>
               <span className="block font-headline font-bold text-5xl text-primary">{PAYMENT_AMOUNT_SOL} SOL</span>
               <span className="block text-xs text-muted-foreground mt-2 italic">~ Environ 20 €</span>
+              <span className="block text-[10px] text-muted-foreground mt-2 font-code">(Réseau: Devnet pour test)</span>
             </div>
 
             <div className="space-y-4 pt-4">
