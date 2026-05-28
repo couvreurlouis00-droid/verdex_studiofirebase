@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { BlockchainCanvas } from '@/components/BlockchainCanvas';
+import { getLiveWaitlistCount } from '@/lib/price-utils';
 
 const StatItem = ({ target, label, unit }: { target: number; label: string; unit?: string }) => {
   const [count, setCount] = useState(0);
@@ -34,6 +35,16 @@ const StatItem = ({ target, label, unit }: { target: number; label: string; unit
 };
 
 export const Hero: React.FC = () => {
+  const [waitlistCount, setWaitlistCount] = useState(14600);
+
+  useEffect(() => {
+    setWaitlistCount(getLiveWaitlistCount());
+    const interval = setInterval(() => {
+      setWaitlistCount(getLiveWaitlistCount());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
       <BlockchainCanvas />
@@ -67,7 +78,7 @@ export const Hero: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center bg-secondary/50 border border-border rounded-3xl p-8 backdrop-blur-sm animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
-          <StatItem target={14250} label="Waitlist members" />
+          <StatItem target={waitlistCount} label="Waitlist members" />
           <div className="hidden md:block w-px h-12 bg-border" />
           <StatItem target={98} label="Carbon offset rate" unit="%" />
           <div className="hidden md:block w-px h-12 bg-border" />

@@ -8,9 +8,10 @@ import { Progress } from '@/components/ui/progress';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
 import { AlertCircle, ShieldCheck, Zap, Loader2, CheckCircle2, TrendingUp, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { getLiveWaitlistCount, getCurrentVDXPrice } from '@/lib/price-utils';
+import { getLiveWaitlistPercentage, getCurrentVDXPrice } from '@/lib/price-utils';
 import { 
   Connection, 
   PublicKey, 
@@ -21,23 +22,24 @@ import {
 
 const DESTINATION_WALLET = "5caRrEq62WNwiDuvLUed8QxhqpJgLk11fBH4bHgE7yDG";
 const MAX_SPOTS = 20000;
-const VDX_TO_SOL_RATE = 0.01 / 2000; // 2000 VDX = 0.01 SOL
+// 2000 VDX = 0.1 SOL -> 1 VDX = 0.00005 SOL
+const VDX_TO_SOL_RATE = 0.1 / 2000; 
 const RPC_ENDPOINT = "https://api.devnet.solana.com";
 
 export default function PaymentPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phantomInstalled, setPhantomInstalled] = useState(false);
-  const [waitlistCount, setWaitlistCount] = useState(14187);
+  const [waitlistPercent, setWaitlistPercent] = useState(73);
   const [vdxAmount, setVdxAmount] = useState(2000);
   const [vdxPrice, setVdxPrice] = useState(0.05);
   const { toast } = useToast();
 
   useEffect(() => {
-    setWaitlistCount(getLiveWaitlistCount());
+    setWaitlistPercent(getLiveWaitlistPercentage());
     setVdxPrice(getCurrentVDXPrice());
     const interval = setInterval(() => {
-      setWaitlistCount(getLiveWaitlistCount());
+      setWaitlistPercent(getLiveWaitlistPercentage());
       setVdxPrice(getCurrentVDXPrice());
     }, 10000);
 
@@ -72,7 +74,7 @@ export default function PaymentPage() {
         SystemProgram.transfer({
           fromPubkey: userPublicKey,
           toPubkey: new PublicKey(DESTINATION_WALLET),
-          lamports: solAmount * LAMPORTS_PER_SOL,
+          lamports: Math.round(solAmount * LAMPORTS_PER_SOL),
         })
       );
 
@@ -150,15 +152,15 @@ export default function PaymentPage() {
           
           <div className="max-w-xl mx-auto space-y-4">
             <div className="flex justify-between items-end mb-2">
-              <span className="font-code text-xs text-muted-foreground uppercase tracking-widest">Spots Filled</span>
+              <span className="font-code text-xs text-muted-foreground uppercase tracking-widest">Early Access Status</span>
               <div className="text-right">
-                <span className="font-headline font-bold text-xl text-primary">{waitlistCount.toLocaleString()}</span>
-                <span className="text-muted-foreground text-sm"> / {MAX_SPOTS.toLocaleString()}</span>
+                <span className="font-headline font-bold text-xl text-primary">{waitlistPercent}%</span>
+                <span className="text-muted-foreground text-sm"> Full</span>
               </div>
             </div>
-            <Progress value={(waitlistCount / MAX_SPOTS) * 100} className="h-3 bg-secondary" />
+            <Progress value={waitlistPercent} className="h-3 bg-secondary" />
             <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
-              High Demand: ~100 new members every 24 hours
+              High Demand: Filling at ~0.5% per day
             </p>
           </div>
         </div>
@@ -198,7 +200,7 @@ export default function PaymentPage() {
                 <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-start gap-3">
                   <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <p className="text-xs leading-relaxed text-foreground/80">
-                    2,000 VDX is the baseline pioneer allocation. Additional tokens are available at the Genesis rate (1 VDX = 0.000005 SOL) to support our scaling efforts.
+                    2,000 VDX is the baseline pioneer allocation. Tokens are secured at the Genesis rate (2,000 VDX per 0.1 SOL) to support our $500k growth initiative.
                   </p>
                 </div>
               </CardContent>
@@ -227,9 +229,9 @@ export default function PaymentPage() {
                     <span className="font-headline font-bold text-5xl text-primary">{solAmount}</span>
                     <span className="font-code text-2xl text-foreground">SOL</span>
                   </div>
-                  <div className="inline-flex items-center gap-2 bg-secondary px-3 py-1 rounded-full">
-                    <span className="text-xs font-code text-muted-foreground">Est. Value:</span>
-                    <span className="text-xs font-bold text-primary">~${estimatedUsdValue}</span>
+                  <div className="inline-flex flex-col items-center gap-1 bg-secondary px-4 py-2 rounded-xl w-full">
+                    <span className="text-[10px] font-code text-muted-foreground uppercase tracking-tighter">Est. Value at Public Launch</span>
+                    <span className="text-sm font-bold text-primary">~${estimatedUsdValue} USD</span>
                   </div>
                 </div>
 
@@ -272,5 +274,3 @@ export default function PaymentPage() {
     </main>
   );
 }
-
-import { Label } from '@/components/ui/label';
