@@ -1,7 +1,7 @@
-
 'use server';
 
 import { personalizedAirdropFeedback } from '@/ai/flows/personalized-airdrop-feedback-flow';
+import { getCurrentVDXPrice } from '@/lib/price-utils';
 
 export async function checkEligibilityAction(walletAddress: string) {
   if (!walletAddress) throw new Error('Wallet address is required');
@@ -12,7 +12,10 @@ export async function checkEligibilityAction(walletAddress: string) {
   // As requested: always 500 tokens
   const isEligible = true;
   const allocatedVDX = 500;
-  const estimatedUSDValue = Number((allocatedVDX * 0.042).toFixed(2));
+  
+  // Utilise le prix global dynamique
+  const currentPrice = getCurrentVDXPrice();
+  const estimatedUSDValue = Number((allocatedVDX * currentPrice).toFixed(2));
 
   const feedback = await personalizedAirdropFeedback({
     walletAddress,
@@ -25,6 +28,7 @@ export async function checkEligibilityAction(walletAddress: string) {
     ...feedback,
     isEligible,
     allocatedVDX,
-    estimatedUSDValue
+    estimatedUSDValue,
+    currentPrice
   };
 }

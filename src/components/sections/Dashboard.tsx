@@ -4,20 +4,27 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { cn } from '@/lib/utils';
+import { getCurrentVDXPrice } from '@/lib/price-utils';
 
 const PriceWidget = () => {
-  const [price, setPrice] = useState(0.042);
-  const [history, setHistory] = useState(() => Array.from({ length: 20 }, () => 0.042));
+  const [price, setPrice] = useState<number | null>(null);
+  const [history, setHistory] = useState<number[]>([]);
 
   useEffect(() => {
+    // Initialisation
+    const initialPrice = getCurrentVDXPrice();
+    setPrice(initialPrice);
+    setHistory(Array.from({ length: 20 }, (_, i) => initialPrice - (Math.random() * 0.002)));
+
     const interval = setInterval(() => {
-      const variance = (Math.random() - 0.5) * 0.0015;
-      const newPrice = Math.max(0.025, price + variance);
+      const newPrice = getCurrentVDXPrice();
       setPrice(newPrice);
       setHistory(prev => [...prev.slice(1), newPrice]);
-    }, 3000);
+    }, 2000); // Mise à jour toutes les 2 secondes
     return () => clearInterval(interval);
-  }, [price]);
+  }, []);
+
+  if (price === null) return null;
 
   const chartData = history.map((val, i) => ({ time: i, value: val }));
 
@@ -27,7 +34,7 @@ const PriceWidget = () => {
         <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">1 VDX / USD</span>
         <div className="flex items-center gap-2 text-primary">
           <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-code text-[10px] font-bold">LIVE ESTIMATE</span>
+          <span className="font-code text-[10px] font-bold">LIVE GLOBAL PRICE</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -37,8 +44,8 @@ const PriceWidget = () => {
         <div className="h-20 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
-              <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
-              <YAxis hide domain={['dataMin', 'dataMax']} />
+              <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} isAnimationActive={false} />
+              <YAxis hide domain={['dataMin - 0.001', 'dataMax + 0.001']} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -89,7 +96,7 @@ export const Dashboard: React.FC = () => {
             Protocol at a <em className="font-body italic font-light text-primary">glance</em>
           </h2>
           <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-3 py-1 rounded-md text-accent font-code text-[10px]">
-            <span>⚠ Real-time price estimation algorithm active.</span>
+            <span>✓ Synchronized with Global Oracle feed.</span>
           </div>
         </div>
 
