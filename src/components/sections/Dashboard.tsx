@@ -5,13 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { cn } from '@/lib/utils';
 import { getCurrentVDXPrice } from '@/lib/price-utils';
+import { Info } from 'lucide-react';
 
 const PriceWidget = () => {
   const [price, setPrice] = useState<number | null>(null);
   const [history, setHistory] = useState<number[]>([]);
 
   useEffect(() => {
-    // Initialisation
     const initialPrice = getCurrentVDXPrice();
     setPrice(initialPrice);
     setHistory(Array.from({ length: 20 }, (_, i) => initialPrice - (Math.random() * 0.002)));
@@ -20,7 +20,7 @@ const PriceWidget = () => {
       const newPrice = getCurrentVDXPrice();
       setPrice(newPrice);
       setHistory(prev => [...prev.slice(1), newPrice]);
-    }, 2000); // Mise à jour toutes les 2 secondes
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
@@ -34,13 +34,16 @@ const PriceWidget = () => {
         <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">1 VDX / USD</span>
         <div className="flex items-center gap-2 text-primary">
           <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-code text-[10px] font-bold">LIVE GLOBAL PRICE</span>
+          <span className="font-code text-[10px] font-bold">LIVE ESTIMATION</span>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-4xl font-headline font-bold mb-4 tracking-tighter">
+        <div className="text-4xl font-headline font-bold mb-2 tracking-tighter">
           ${price.toFixed(4)}
         </div>
+        <p className="text-[9px] text-muted-foreground mb-4 flex items-center gap-1">
+          <Info className="w-3 h-3" /> Token non listé : estimation basée sur des algorithmes prédictifs de lancement.
+        </p>
         <div className="h-20 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
@@ -73,7 +76,6 @@ export const Dashboard: React.FC = () => {
   const [txHashes, setTxHashes] = useState<string[]>([]);
 
   useEffect(() => {
-    // Generate random hashes only on the client to avoid hydration mismatch
     setTxHashes([...Array(5)].map(() => `0x....${Math.random().toString(16).slice(2, 6)}`));
 
     const interval = setInterval(() => {
@@ -96,13 +98,13 @@ export const Dashboard: React.FC = () => {
             Protocol at a <em className="font-body italic font-light text-primary">glance</em>
           </h2>
           <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-3 py-1 rounded-md text-accent font-code text-[10px]">
-            <span>✓ Synchronized with Global Oracle feed.</span>
+            <span>✓ Synchronized with Global Oracle feed. (Estimation algorithmique)</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <PriceWidget />
-          <MetricCard title="Network TPS (Waitlist)" value={metrics.tps.toString()} sub="transactions / second" />
+          <MetricCard title="Network TPS" value={metrics.tps.toString()} sub="transactions / second" />
           <MetricCard title="CO₂ Offset" value={`${metrics.co2} kg`} sub="metric tonnes this epoch" colorClass="text-primary" />
           <MetricCard title="Staking APY (Forecast)" value="12.4%" sub="estimated annual yield" />
           <MetricCard title="Active Nodes" value="COMING SOON" sub="validators online" colorClass="text-muted-foreground" />

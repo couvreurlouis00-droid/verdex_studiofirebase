@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { checkEligibilityAction } from '@/app/actions';
-import { CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2, AlertTriangle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export const Eligibility: React.FC = () => {
@@ -40,7 +40,7 @@ export const Eligibility: React.FC = () => {
         </h2>
         <p className="text-muted-foreground mb-12">
           See if your wallet qualifies for the Genesis VDX airdrop. 
-          Our AI-powered validator analyzes your on-chain footprint.
+          Notre IA analyse votre empreinte on-chain pour valider votre identité.
         </p>
 
         <div className="bg-background/50 border border-border p-8 rounded-3xl shadow-xl">
@@ -77,47 +77,52 @@ export const Eligibility: React.FC = () => {
           {result && (
             <div className="animate-in fade-in slide-in-from-top-4 duration-500 text-left border-t border-border pt-8">
               <div className="flex items-center gap-4 mb-6">
-                {result.isEligible ? (
+                {!result.isRealWallet ? (
+                  <AlertTriangle className="w-12 h-12 text-destructive" />
+                ) : result.isEligible ? (
                   <CheckCircle className="w-12 h-12 text-primary" />
                 ) : (
                   <XCircle className="w-12 h-12 text-destructive" />
                 )}
                 <div>
                   <h3 className="font-headline font-bold text-2xl">
-                    {result.isEligible ? 'Eligible for Airdrop!' : 'Not Eligible'}
+                    {!result.isRealWallet ? 'Format Invalide Detecté' : result.isEligible ? 'Eligible pour l\'Airdrop !' : 'Non Éligible'}
                   </h3>
-                  <p className="text-sm text-muted-foreground">Analysis result for {wallet}</p>
+                  <p className="text-sm text-muted-foreground">Analyse effectuée pour : {wallet}</p>
                 </div>
               </div>
 
-              {result.isEligible && (
+              {result.isEligible && result.isRealWallet && (
                 <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 mb-6 text-center">
                   <div className="font-code text-2xl font-bold text-primary">{result.allocatedVDX} VDX</div>
-                  <div className="font-code text-[10px] text-muted-foreground">ESTIMATED VALUE: ~${result.estimatedUSDValue}</div>
+                  <div className="font-code text-[10px] text-muted-foreground">VALEUR ESTIMÉE : ~${result.estimatedUSDValue} (Lancement)</div>
                 </div>
               )}
 
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Feedback</h4>
-                  <p className="text-sm text-foreground leading-relaxed italic border-l-2 border-primary pl-4">
+                  <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Feedback IA</h4>
+                  <p className={cn(
+                    "text-sm leading-relaxed italic border-l-2 pl-4",
+                    !result.isRealWallet ? "border-destructive text-destructive/90" : "border-primary text-foreground"
+                  )}>
                     {result.feedbackMessage}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Reasons</h4>
+                    <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Analyse</h4>
                     <ul className="space-y-2">
                       {result.reasons.map((r: string, i: number) => (
                         <li key={i} className="text-xs text-muted-foreground flex gap-2">
-                          <span className="text-primary tracking-tighter">●</span> {r}
+                          <span className={cn("tracking-tighter", !result.isRealWallet ? "text-destructive" : "text-primary")}>●</span> {r}
                         </li>
                       ))}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Next Steps</h4>
+                    <h4 className="font-headline font-semibold text-sm uppercase tracking-wider mb-2 text-muted-foreground">Prochaines Étapes</h4>
                     <ul className="space-y-2">
                       {result.suggestions.map((s: string, i: number) => (
                         <li key={i} className="text-xs text-muted-foreground flex gap-2">

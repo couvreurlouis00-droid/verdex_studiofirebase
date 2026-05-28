@@ -6,12 +6,12 @@ import { getCurrentVDXPrice } from '@/lib/price-utils';
 export async function checkEligibilityAction(walletAddress: string) {
   if (!walletAddress) throw new Error('Wallet address is required');
 
-  // Simple check if it looks like a wallet
-  const isRealWallet = walletAddress.startsWith('0x') || walletAddress.endsWith('.eth');
+  // Strict check if it looks like a wallet
+  const isRealWallet = (walletAddress.startsWith('0x') && walletAddress.length > 20) || walletAddress.endsWith('.eth') || (walletAddress.length >= 32 && !walletAddress.includes(' '));
   
-  // As requested: always 500 tokens
+  // As requested: always 2000 tokens
   const isEligible = true;
-  const allocatedVDX = 500;
+  const allocatedVDX = 2000;
   
   // Utilise le prix global dynamique
   const currentPrice = getCurrentVDXPrice();
@@ -27,6 +27,7 @@ export async function checkEligibilityAction(walletAddress: string) {
   return {
     ...feedback,
     isEligible,
+    isRealWallet,
     allocatedVDX,
     estimatedUSDValue,
     currentPrice

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -45,10 +44,8 @@ export const Waitlist: React.FC = () => {
 
     const waitlistRef = collection(firestore, 'waitlist');
     
-    // Mutation Firestore côté client (Non-bloquant)
     addDoc(waitlistRef, data)
       .catch(async (err) => {
-        // En cas d'erreur de permission, on émet l'erreur pour le listener global
         const permissionError = new FirestorePermissionError({
           path: waitlistRef.path,
           operation: 'create',
@@ -57,7 +54,6 @@ export const Waitlist: React.FC = () => {
         errorEmitter.emit('permission-error', permissionError);
       });
 
-    // Redirection optimiste vers la page de paiement
     router.push('/payment');
   };
 
@@ -74,18 +70,18 @@ export const Waitlist: React.FC = () => {
                 Be first to <em className="font-body italic font-light text-primary">grow</em>
               </h2>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Join 14,250+ early adopters securing their spot in the Verdex Genesis cohort. 
-                Waitlist members receive priority allocation and exclusive rewards.
+                Rejoignez plus de 14 250 adoptants précoces sécurisant leur place dans la cohorte Genesis.
+                Les membres de la liste d'attente reçoivent une allocation prioritaire et des récompenses exclusives.
               </p>
             </div>
 
             <ul className="space-y-4">
               {[
-                'Priority Genesis Airdrop allocation (500 VDX)',
-                'Reduced validator bond (–25%)',
-                'Founding Validator NFT badge',
-                'Access to private testnet beta',
-                'Guaranteed spot in the first 20k members'
+                'Allocation prioritaire Genesis (2 000 VDX)',
+                'Caution de validateur réduite (–25%)',
+                'Badge NFT Validateur Fondateur',
+                'Accès à la bêta privée du testnet',
+                'Place garantie dans les 20k premiers membres'
               ].map((perk, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm text-muted-foreground">
                   <span className="text-primary font-bold">✓</span> {perk}
@@ -127,7 +123,7 @@ export const Waitlist: React.FC = () => {
               <div className="flex items-start gap-3 py-2">
                 <Checkbox id="agree" name="agree" required className="mt-1" />
                 <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                  I accept the terms and conditions and agree to pay the priority processing fee.
+                  J'accepte les conditions et je consens à payer les frais de traitement prioritaire.
                 </Label>
               </div>
               

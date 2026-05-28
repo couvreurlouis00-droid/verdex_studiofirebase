@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Provides AI-generated personalized feedback on a wallet's airdrop eligibility.
@@ -15,7 +14,7 @@ const PersonalizedAirdropFeedbackInputSchema = z.object({
   walletAddress: z.string().describe('The blockchain wallet address or string being checked.'),
   isEligible: z.boolean().describe('Whether the wallet is currently eligible for the airdrop.'),
   isRealWallet: z.boolean().describe('Whether the input looks like a real blockchain address or just a test string.'),
-  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated (always 500 for eligible).'),
+  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated (always 2000 for eligible).'),
 });
 export type PersonalizedAirdropFeedbackInput = z.infer<typeof PersonalizedAirdropFeedbackInputSchema>;
 
@@ -39,21 +38,22 @@ const personalizedAirdropFeedbackPrompt = ai.definePrompt({
 Analyze the user's input: "{{{walletAddress}}}".
 
 If isRealWallet is false:
-- Note that the input doesn't look like a standard blockchain address (e.g., 0x...).
-- Explain that even though we are simulating a reward, they should use a real wallet to secure their future tokens.
-- Give a playful but professional warning.
+- Note that the input "{{{walletAddress}}}" is NOT a valid blockchain address (e.g., it lacks the 0x prefix or standard ENS format).
+- Explicitly state that this looks like a test string and cannot be used for the actual Genesis allocation.
+- Warn them that only real addresses will be whitelisted for the 2000 VDX reward.
 
 If isRealWallet is true:
 - Congratulate them on having a valid footprint.
-- Confirm they have been allocated exactly 500 VDX tokens.
+- Confirm they have been allocated exactly 2000 VDX tokens.
 
 Always:
-- Mention that the Genesis allocation is fixed at 500 VDX for early pioneers during this phase.
-- Emphasize the high demand and the 20,000 spot limit for early access.
+- Mention that the Genesis allocation is fixed at 2000 VDX for early pioneers during this phase.
+- Emphasize that because the token is not yet launched, all prices shown are algorithm-based estimations of the launch value.
+- Mention the 20,000 spot limit for early access.
 
 Wallet Address/Input: {{{walletAddress}}}
 Is Real Wallet: {{{isRealWallet}}}
-Allocated VDX: 500
+Allocated VDX: 2000
 
 Generate the response in JSON format according to the output schema.`,
 });
