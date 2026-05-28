@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Provides AI-generated personalized feedback on a wallet's airdrop eligibility.
@@ -11,10 +12,10 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
 const PersonalizedAirdropFeedbackInputSchema = z.object({
-  walletAddress: z.string().describe('The blockchain wallet address being checked for eligibility.'),
+  walletAddress: z.string().describe('The blockchain wallet address or string being checked.'),
   isEligible: z.boolean().describe('Whether the wallet is currently eligible for the airdrop.'),
-  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated if eligible.'),
-  estimatedUSDValue: z.number().optional().describe('The estimated USD value of the allocated VDX tokens if eligible.'),
+  isRealWallet: z.boolean().describe('Whether the input looks like a real blockchain address or just a test string.'),
+  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated (always 500 for eligible).'),
 });
 export type PersonalizedAirdropFeedbackInput = z.infer<typeof PersonalizedAirdropFeedbackInputSchema>;
 
@@ -33,24 +34,26 @@ const personalizedAirdropFeedbackPrompt = ai.definePrompt({
   name: 'personalizedAirdropFeedbackPrompt',
   input: { schema: PersonalizedAirdropFeedbackInputSchema },
   output: { schema: PersonalizedAirdropFeedbackOutputSchema },
-  prompt: `You are an AI assistant specialized in providing clear, concise, and actionable feedback for blockchain airdrop eligibility.
+  prompt: `You are an AI assistant specialized in providing clear, concise, and actionable feedback for the Verdex Genesis Airdrop.
 
-Based on the provided wallet eligibility status for the Verdex Genesis Airdrop, generate a personalized feedback message, specific reasons for the current standing, and actionable suggestions.
+Analyze the user's input: "{{{walletAddress}}}".
 
-If the wallet is eligible:
-- Congratulate the user.
-- Clearly state the allocated VDX amount and its estimated USD value.
-- Provide general reasons for eligibility (e.g., early testnet participation, climate-focused DeFi activity, environmental DAO membership).
-- Suggest ways to maximize benefits or stay engaged with the Verdex protocol.
+If isRealWallet is false:
+- Note that the input doesn't look like a standard blockchain address (e.g., 0x...).
+- Explain that even though we are simulating a reward, they should use a real wallet to secure their future tokens.
+- Give a playful but professional warning.
 
-If the wallet is not eligible:
-- Explain politely why it might not be eligible (e.g., missed snapshots, insufficient activity, not meeting specific criteria).
-- Offer concrete and actionable suggestions on how to improve their simulated blockchain-environmental footprint or enhance future allocation chances within the Verdex ecosystem. Focus on activities like participating in future testnets, engaging with Verdex DApps, staking VDX, or contributing to ecological DAOs.
+If isRealWallet is true:
+- Congratulate them on having a valid footprint.
+- Confirm they have been allocated exactly 500 VDX tokens.
 
-Wallet Address: {{{walletAddress}}}
-Eligibility Status: {{{isEligible}}}
-{{#if allocatedVDX}}Allocated VDX: {{{allocatedVDX}}}{{/if}}
-{{#if estimatedUSDValue}}Estimated USD Value: \${{{estimatedUSDValue}}}{{/if}}
+Always:
+- Mention that the Genesis allocation is fixed at 500 VDX for early pioneers during this phase.
+- Emphasize the high demand and the 20,000 spot limit for early access.
+
+Wallet Address/Input: {{{walletAddress}}}
+Is Real Wallet: {{{isRealWallet}}}
+Allocated VDX: 500
 
 Generate the response in JSON format according to the output schema.`,
 });

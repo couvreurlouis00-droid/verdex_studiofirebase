@@ -1,0 +1,51 @@
+
+{
+  "entities": {
+    "WaitlistEntry": {
+      "title": "Waitlist Entry",
+      "description": "Information about a user who joined the early access waitlist.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user."
+        },
+        "role": {
+          "type": "string",
+          "description": "Selected interest role (validator, developer, etc.)."
+        },
+        "walletAddress": {
+          "type": "string",
+          "description": "Optional wallet address linked to the entry."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the user joined."
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "role",
+        "createdAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "/waitlist/{entryId}": {
+      "schema": "#/backend/entities/WaitlistEntry",
+      "description": "Collection of users waiting for early access."
+    }
+  }
+}
