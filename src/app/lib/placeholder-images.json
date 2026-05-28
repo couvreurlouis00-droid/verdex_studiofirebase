@@ -1,0 +1,10 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-bg",
+      "description": "Abstract green network connectivity",
+      "imageUrl": "https://picsum.photos/seed/verdex1/1920/1080",
+      "imageHint": "green technology"
+    }
+  ]
+}
