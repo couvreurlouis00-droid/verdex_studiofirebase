@@ -63,8 +63,12 @@ const MetricCard = ({ title, value, sub, colorClass }: { title: string; value: s
 
 export const Dashboard: React.FC = () => {
   const [metrics, setMetrics] = useState({ tps: 0, co2: 0 });
+  const [txHashes, setTxHashes] = useState<string[]>([]);
 
   useEffect(() => {
+    // Generate random hashes only on the client to avoid hydration mismatch
+    setTxHashes([...Array(5)].map(() => `0x....${Math.random().toString(16).slice(2, 6)}`));
+
     const interval = setInterval(() => {
       setMetrics({
         tps: Math.floor(Math.random() * 5) + 2,
@@ -114,9 +118,9 @@ export const Dashboard: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {[...Array(5)].map((_, i) => (
+                        {(txHashes.length > 0 ? txHashes : [...Array(5)].map(() => '0x....----')).map((hash, i) => (
                           <tr key={i} className="border-b border-border/50 opacity-20">
-                            <td className="py-4 px-2">0x....{Math.random().toString(16).slice(2, 6)}</td>
+                            <td className="py-4 px-2">{hash}</td>
                             <td className="py-4 px-2">Transfer</td>
                             <td className="py-4 px-2">---</td>
                             <td className="py-4 px-2">---</td>
