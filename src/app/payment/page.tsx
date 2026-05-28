@@ -4,14 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
-import { AlertCircle, ShieldCheck, Zap, Loader2, CheckCircle2, TrendingUp, Info } from 'lucide-react';
+import { AlertCircle, ShieldCheck, Zap, Loader2, CheckCircle2, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { getLiveWaitlistPercentage, getCurrentVDXPrice } from '@/lib/price-utils';
+import { getCurrentVDXPrice } from '@/lib/price-utils';
 import { 
   Connection, 
   PublicKey, 
@@ -21,7 +20,6 @@ import {
 } from '@solana/web3.js';
 
 const DESTINATION_WALLET = "5caRrEq62WNwiDuvLUed8QxhqpJgLk11fBH4bHgE7yDG";
-const MAX_SPOTS = 20000;
 // 2000 VDX = 0.1 SOL -> 1 VDX = 0.00005 SOL
 const VDX_TO_SOL_RATE = 0.1 / 2000; 
 const RPC_ENDPOINT = "https://api.devnet.solana.com";
@@ -30,16 +28,13 @@ export default function PaymentPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phantomInstalled, setPhantomInstalled] = useState(false);
-  const [waitlistPercent, setWaitlistPercent] = useState(73);
   const [vdxAmount, setVdxAmount] = useState(2000);
   const [vdxPrice, setVdxPrice] = useState(0.05);
   const { toast } = useToast();
 
   useEffect(() => {
-    setWaitlistPercent(getLiveWaitlistPercentage());
     setVdxPrice(getCurrentVDXPrice());
     const interval = setInterval(() => {
-      setWaitlistPercent(getLiveWaitlistPercentage());
       setVdxPrice(getCurrentVDXPrice());
     }, 10000);
 
@@ -149,20 +144,9 @@ export default function PaymentPage() {
           <h1 className="font-headline font-bold text-4xl md:text-6xl mb-6">
             Secure Your <em className="font-body italic font-light text-primary">Genesis Allocation</em>
           </h1>
-          
-          <div className="max-w-xl mx-auto space-y-4">
-            <div className="flex justify-between items-end mb-2">
-              <span className="font-code text-xs text-muted-foreground uppercase tracking-widest">Early Access Status</span>
-              <div className="text-right">
-                <span className="font-headline font-bold text-xl text-primary">{waitlistPercent}%</span>
-                <span className="text-muted-foreground text-sm"> Full</span>
-              </div>
-            </div>
-            <Progress value={waitlistPercent} className="h-3 bg-secondary" />
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
-              High Demand: Filling at ~0.5% per day
-            </p>
-          </div>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            This Genesis Drop aims to raise <span className="text-primary font-bold">$500,000</span> to fund our Phase 3 development and expand our IoT forest sensor network.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
@@ -171,10 +155,10 @@ export default function PaymentPage() {
               <CardHeader className="bg-gradient-to-br from-primary/5 to-transparent border-b border-border/50">
                 <CardTitle className="text-2xl font-headline flex items-center gap-2">
                   <ShieldCheck className="text-primary w-6 h-6" /> 
-                  Fundraising & Roadshow
+                  Custom Allocation
                 </CardTitle>
                 <CardDescription className="text-foreground/80">
-                  This Genesis Drop aims to raise <strong>$500,000</strong> to fund our Phase 3 development and expand our IoT forest sensor network. By joining now, you fuel the next stage of the Green-Chain Protocol.
+                  Select how many VDX tokens you wish to secure. Each contribution directly fuels the Green-Chain Protocol growth.
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-8 space-y-6">
@@ -192,15 +176,15 @@ export default function PaymentPage() {
                     className="py-4"
                   />
                   <div className="flex justify-between text-[10px] text-muted-foreground uppercase font-code">
-                    <span>2,000 VDX (Standard)</span>
-                    <span>50,000 VDX (Whale Cap)</span>
+                    <span>2,000 VDX (Min)</span>
+                    <span>50,000 VDX (Max)</span>
                   </div>
                 </div>
 
                 <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-start gap-3">
                   <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <p className="text-xs leading-relaxed text-foreground/80">
-                    2,000 VDX is the baseline pioneer allocation. Tokens are secured at the Genesis rate (2,000 VDX per 0.1 SOL) to support our $500k growth initiative.
+                    Tokens are secured at the Genesis rate (2,000 VDX per 0.1 SOL). This is a one-time opportunity before the public launch.
                   </p>
                 </div>
               </CardContent>
@@ -255,7 +239,7 @@ export default function PaymentPage() {
                   )}
 
                   <p className="text-[10px] text-center text-muted-foreground leading-relaxed">
-                    By clicking "Pay with Phantom", you initiate an irreversible transaction on the Solana Network. Ensure you have enough SOL for gas fees.
+                    By clicking "Pay with Phantom", you initiate an irreversible transaction on the Solana Network.
                   </p>
                 </div>
               </CardContent>

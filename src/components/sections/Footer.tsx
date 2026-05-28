@@ -27,8 +27,13 @@ export const Footer: React.FC = () => {
           <div className="space-y-6">
             <h5 className="font-code text-[10px] text-muted-foreground uppercase tracking-widest">Protocol</h5>
             <ul className="space-y-3 flex flex-col">
-              {['Whitepaper', 'Documentation', 'GitHub', 'Audit Reports'].map(link => (
-                <Link key={link} href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">{link}</Link>
+              {[
+                { name: 'Whitepaper', href: '/whitepaper' },
+                { name: 'Documentation', href: '/docs' },
+                { name: 'GitHub', href: 'https://github.com' },
+                { name: 'Audit Reports', href: '/audits' }
+              ].map(link => (
+                <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
               ))}
             </ul>
           </div>
@@ -36,8 +41,13 @@ export const Footer: React.FC = () => {
           <div className="space-y-6">
             <h5 className="font-code text-[10px] text-muted-foreground uppercase tracking-widest">Ecosystem</h5>
             <ul className="space-y-3 flex flex-col">
-              {['Developers', 'Grants', 'Validators', 'Carbon Oracle'].map(link => (
-                <Link key={link} href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">{link}</Link>
+              {[
+                { name: 'Developers', href: '/developers' },
+                { name: 'Grants', href: '/grants' },
+                { name: 'Validators', href: '/validators' },
+                { name: 'Carbon Oracle', href: '/oracle' }
+              ].map(link => (
+                <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
               ))}
             </ul>
           </div>
@@ -45,8 +55,13 @@ export const Footer: React.FC = () => {
           <div className="space-y-6">
             <h5 className="font-code text-[10px] text-muted-foreground uppercase tracking-widest">Company</h5>
             <ul className="space-y-3 flex flex-col">
-              {['About', 'Team', 'Blog', 'Press Kit'].map(link => (
-                <Link key={link} href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">{link}</Link>
+              {[
+                { name: 'About', href: '/about' },
+                { name: 'Team', href: '/team' },
+                { name: 'Blog', href: '/blog' },
+                { name: 'Press Kit', href: '/press' }
+              ].map(link => (
+                <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
               ))}
             </ul>
           </div>
