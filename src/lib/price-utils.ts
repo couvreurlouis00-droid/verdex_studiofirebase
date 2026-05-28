@@ -23,3 +23,18 @@ export function getCurrentVDXPrice(): number {
   
   return Number(finalPrice.toFixed(6));
 }
+
+/**
+ * Calcule le nombre d'inscrits à la waitlist de manière déterministe.
+ * Démarre à 14 200 et augmente lentement pour simuler un trafic réel.
+ */
+export function getLiveWaitlistCount(): number {
+  const baseCount = 14200;
+  const startTime = 1740000000000; // Un point de référence fixe (date de lancement du code)
+  const now = Date.now();
+  
+  // Simule une nouvelle inscription toutes les ~45 secondes en moyenne
+  const progress = Math.floor((now - startTime) / 45000);
+  
+  return baseCount + Math.max(0, progress);
+}
