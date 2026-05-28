@@ -30,7 +30,7 @@ export const Waitlist: React.FC = () => {
     const agreed = formData.get('agree');
 
     if (!agreed) return alert('Please accept the terms.');
-    if (!name || !email) return setError('Veuillez remplir les champs obligatoires.');
+    if (!name || !email) return setError('Please fill in required fields.');
 
     setLoading(true);
 
@@ -70,18 +70,17 @@ export const Waitlist: React.FC = () => {
                 Be first to <em className="font-body italic font-light text-primary">grow</em>
               </h2>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Rejoignez plus de 14 250 adoptants précoces sécurisant leur place dans la cohorte Genesis.
-                Les membres de la liste d'attente reçoivent une allocation prioritaire et des récompenses exclusives.
+                Join over 14,187 early adopters securing their spot in the Genesis cohort. We are raising $500k to fund Phase 3 development. Secure your 2,000 VDX allocation today.
               </p>
             </div>
 
             <ul className="space-y-4">
               {[
-                'Allocation prioritaire Genesis (2 000 VDX)',
-                'Caution de validateur réduite (–25%)',
-                'Badge NFT Validateur Fondateur',
-                'Accès à la bêta privée du testnet',
-                'Place garantie dans les 20k premiers membres'
+                'Priority Genesis Allocation (2,000 VDX)',
+                'Reduced Validator Bond (-25%)',
+                'Founding Validator NFT Badge',
+                'Private Testnet Beta Access',
+                'Guaranteed spot in the first 20k members'
               ].map((perk, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm text-muted-foreground">
                   <span className="text-primary font-bold">✓</span> {perk}
@@ -123,7 +122,7 @@ export const Waitlist: React.FC = () => {
               <div className="flex items-start gap-3 py-2">
                 <Checkbox id="agree" name="agree" required className="mt-1" />
                 <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                  J'accepte les conditions et je consens à payer les frais de traitement prioritaire.
+                  I accept the terms and consent to pay the priority processing fee.
                 </Label>
               </div>
               

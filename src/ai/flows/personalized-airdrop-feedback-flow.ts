@@ -1,10 +1,6 @@
 'use server';
 /**
  * @fileOverview Provides AI-generated personalized feedback on a wallet's airdrop eligibility.
- *
- * - personalizedAirdropFeedback - A function that generates personalized feedback for a wallet's airdrop eligibility.
- * - PersonalizedAirdropFeedbackInput - The input type for the personalizedAirdropFeedback function.
- * - PersonalizedAirdropFeedbackOutput - The return type for the personalizedAirdropFeedback function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -14,7 +10,7 @@ const PersonalizedAirdropFeedbackInputSchema = z.object({
   walletAddress: z.string().describe('The blockchain wallet address or string being checked.'),
   isEligible: z.boolean().describe('Whether the wallet is currently eligible for the airdrop.'),
   isRealWallet: z.boolean().describe('Whether the input looks like a real blockchain address or just a test string.'),
-  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated (always 2000 for eligible).'),
+  allocatedVDX: z.number().optional().describe('The amount of VDX tokens allocated.'),
 });
 export type PersonalizedAirdropFeedbackInput = z.infer<typeof PersonalizedAirdropFeedbackInputSchema>;
 
@@ -38,17 +34,17 @@ const personalizedAirdropFeedbackPrompt = ai.definePrompt({
 Analyze the user's input: "{{{walletAddress}}}".
 
 If isRealWallet is false:
-- Note that the input "{{{walletAddress}}}" is NOT a valid blockchain address (e.g., it lacks the 0x prefix or standard ENS format).
+- Note that the input "{{{walletAddress}}}" is NOT a valid blockchain address.
 - Explicitly state that this looks like a test string and cannot be used for the actual Genesis allocation.
-- Warn them that only real addresses will be whitelisted for the 2000 VDX reward.
+- Warn them that only real addresses will be whitelisted for the 2,000 VDX reward.
 
 If isRealWallet is true:
 - Congratulate them on having a valid footprint.
-- Confirm they have been allocated exactly 2000 VDX tokens.
+- Confirm they have been allocated exactly 2,000 VDX tokens.
 
 Always:
-- Mention that the Genesis allocation is fixed at 2000 VDX for early pioneers during this phase.
-- Emphasize that because the token is not yet launched, all prices shown are algorithm-based estimations of the launch value.
+- Mention that the Genesis allocation is fixed at 2,000 VDX for early pioneers.
+- Emphasize that because the token is not yet launched, prices shown are predictive estimations of the launch value based on our $500k fundraising goal.
 - Mention the 20,000 spot limit for early access.
 
 Wallet Address/Input: {{{walletAddress}}}
