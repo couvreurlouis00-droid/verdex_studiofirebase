@@ -8,34 +8,57 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { joinWaitlistAction } from '@/app/actions';
 import { Hexagon, Loader2 } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export const Waitlist: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const firestore = useFirestore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     const formData = new FormData(e.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const role = formData.get('role') as string;
+    const walletAddress = formData.get('walletAddress') as string;
     const agreed = formData.get('agree');
+
     if (!agreed) return alert('Please accept the terms.');
+    if (!name || !email) return setError('Veuillez remplir les champs obligatoires.');
 
     setLoading(true);
-    try {
-      const res = await joinWaitlistAction(formData);
-      if (res.success) {
-        // Redirection as requested
-        router.push('/payment');
-      }
-    } catch (e: any) {
-      console.error(e);
-      setError(e.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
+
+    const data = {
+      name,
+      email,
+      role: role || 'retail',
+      walletAddress: walletAddress || null,
+      createdAt: serverTimestamp(),
+    };
+
+    const waitlistRef = collection(firestore, 'waitlist');
+    
+    // Mutation Firestore côté client (Non-bloquant)
+    addDoc(waitlistRef, data)
+      .catch(async (err) => {
+        // En cas d'erreur de permission, on émet l'erreur pour le listener global
+        const permissionError = new FirestorePermissionError({
+          path: waitlistRef.path,
+          operation: 'create',
+          requestResourceData: data,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      });
+
+    // Redirection optimiste vers la page de paiement
+    router.push('/payment');
   };
 
   return (
