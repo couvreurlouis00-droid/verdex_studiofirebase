@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="bg-secondary/40 border-t border-border pt-20 pb-10">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
           <div className="col-span-1 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6 group">
               <Hexagon className="text-primary w-8 h-8" />
@@ -32,34 +32,6 @@ export const Footer: React.FC = () => {
                 { name: 'Documentation', href: '/docs' },
                 { name: 'GitHub', href: 'https://github.com' },
                 { name: 'Audit Reports', href: '/audits' }
-              ].map(link => (
-                <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h5 className="font-code text-[10px] text-muted-foreground uppercase tracking-widest">Ecosystem</h5>
-            <ul className="space-y-3 flex flex-col">
-              {[
-                { name: 'Developers', href: '/developers' },
-                { name: 'Grants', href: '/grants' },
-                { name: 'Validators', href: '/validators' },
-                { name: 'Carbon Oracle', href: '/oracle' }
-              ].map(link => (
-                <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h5 className="font-code text-[10px] text-muted-foreground uppercase tracking-widest">Company</h5>
-            <ul className="space-y-3 flex flex-col">
-              {[
-                { name: 'About', href: '/about' },
-                { name: 'Team', href: '/team' },
-                { name: 'Blog', href: '/blog' },
-                { name: 'Press Kit', href: '/press' }
               ].map(link => (
                 <Link key={link.name} href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.name}</Link>
               ))}
