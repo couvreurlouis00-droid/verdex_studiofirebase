@@ -6,8 +6,10 @@ import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { cn } from '@/lib/utils';
 import { getCurrentVDXPrice } from '@/lib/price-utils';
 import { Info } from 'lucide-react';
+import { useTranslation } from '@/lib/i18n';
 
 const PriceWidget = () => {
+  const { t } = useTranslation();
   const [price, setPrice] = useState<number | null>(null);
   const [history, setHistory] = useState<number[]>([]);
 
@@ -34,7 +36,7 @@ const PriceWidget = () => {
         <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">1 VDX / USD</span>
         <div className="flex items-center gap-2 text-primary">
           <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          <span className="font-code text-[10px] font-bold">LIVE ESTIMATION</span>
+          <span className="font-code text-[10px] font-bold">{t.dashboard.live}</span>
         </div>
       </CardHeader>
       <CardContent>
@@ -42,7 +44,7 @@ const PriceWidget = () => {
           ${price.toFixed(4)}
         </div>
         <p className="text-[9px] text-muted-foreground mb-4 flex items-center gap-1">
-          <Info className="w-3 h-3" /> Token non listé : estimation basée sur des algorithmes prédictifs de lancement.
+          <Info className="w-3 h-3" /> {t.dashboard.unlisted}
         </p>
         <div className="h-20 w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -72,6 +74,7 @@ const MetricCard = ({ title, value, sub, colorClass }: { title: string; value: s
 );
 
 export const Dashboard: React.FC = () => {
+  const { t } = useTranslation();
   const [metrics, setMetrics] = useState({ tps: 0, co2: 0 });
   const [txHashes, setTxHashes] = useState<string[]>([]);
 
@@ -92,27 +95,27 @@ export const Dashboard: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="mb-12">
           <span className="font-code text-xs text-primary uppercase tracking-widest mb-4 block">
-            Dashboard
+            {t.dashboard.tag}
           </span>
           <h2 className="font-headline font-bold text-4xl md:text-5xl mb-6">
-            Protocol at a <em className="font-body italic font-light text-primary">glance</em>
+            {t.dashboard.title} <em className="font-body italic font-light text-primary">{t.dashboard.titleItalic}</em>
           </h2>
           <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-3 py-1 rounded-md text-accent font-code text-[10px]">
-            <span>✓ Synchronized with Global Oracle feed. (Estimation algorithmique)</span>
+            <span>✓ {t.dashboard.sync}</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <PriceWidget />
-          <MetricCard title="Network TPS" value={metrics.tps.toString()} sub="transactions / second" />
-          <MetricCard title="CO₂ Offset" value={`${metrics.co2} kg`} sub="metric tonnes this epoch" colorClass="text-primary" />
-          <MetricCard title="Staking APY (Forecast)" value="12.4%" sub="estimated annual yield" />
-          <MetricCard title="Active Nodes" value="COMING SOON" sub="validators online" colorClass="text-muted-foreground" />
+          <MetricCard title={t.dashboard.tps} value={metrics.tps.toString()} sub={t.dashboard.tpsSub} />
+          <MetricCard title={t.dashboard.co2} value={`${metrics.co2} kg`} sub={t.dashboard.co2Sub} colorClass="text-primary" />
+          <MetricCard title={t.dashboard.apy} value="12.4%" sub={t.dashboard.apySub} />
+          <MetricCard title={t.dashboard.nodes} value="COMING SOON" sub={t.dashboard.nodesSub} colorClass="text-muted-foreground" />
           
           <Card className="col-span-1 md:col-span-3 bg-secondary/50 border-border">
              <CardHeader className="flex flex-row items-center justify-between pb-2">
-                <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">Recent Transactions</span>
-                <span className="font-code text-[10px] text-muted-foreground">COMING SOON</span>
+                <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">{t.dashboard.recent}</span>
+                <span className="font-code text-[10px] text-muted-foreground uppercase">COMING SOON</span>
              </CardHeader>
              <CardContent>
                 <div className="overflow-x-auto">
@@ -155,8 +158,8 @@ export const Dashboard: React.FC = () => {
               </div>
             </div>
             <div className="text-center">
-              <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">Green Score</span>
-              <p className="text-[10px] text-muted-foreground mt-2">Protocol sustainability index</p>
+              <span className="font-code text-[10px] text-muted-foreground uppercase tracking-wider">{t.dashboard.greenScore}</span>
+              <p className="text-[10px] text-muted-foreground mt-2">{t.dashboard.greenSub}</p>
             </div>
           </Card>
         </div>

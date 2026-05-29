@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { BlockchainCanvas } from '@/components/BlockchainCanvas';
+import { useTranslation } from '@/lib/i18n';
 
 const StatItem = ({ target, label, unit }: { target: number; label: string; unit?: string }) => {
   const [count, setCount] = useState(0);
@@ -34,6 +35,7 @@ const StatItem = ({ target, label, unit }: { target: number; label: string; unit
 };
 
 export const Hero: React.FC = () => {
+  const { t } = useTranslation();
   // Static waitlist count as requested
   const waitlistCount = 14678;
 
@@ -46,35 +48,35 @@ export const Hero: React.FC = () => {
         <div className="inline-flex items-center gap-2 bg-secondary border border-border px-4 py-2 rounded-full mb-8 animate-in fade-in slide-in-from-bottom duration-700">
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="font-code text-xs text-primary font-medium tracking-tight">
-            Mainnet launch · September 1st, 2026
+            {t.hero.tag}
           </span>
         </div>
 
         <h1 className="font-headline font-bold text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 text-foreground animate-in fade-in slide-in-from-bottom duration-1000">
-          <span className="block">The Carbon-Neutral</span>
-          <span className="block italic text-primary font-body font-light">Blockchain</span>
-          <span className="block">for a Living Planet.</span>
+          <span className="block">{t.hero.title1}</span>
+          <span className="block italic text-primary font-body font-light">{t.hero.title2}</span>
+          <span className="block">{t.hero.title3}</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground mb-12 animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
-          Verdex is a Layer-1 proof-of-growth protocol that turns every validated transaction into a certified carbon offset — making DeFi inherently regenerative.
+          {t.hero.desc}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20 animate-in fade-in slide-in-from-bottom duration-1000 delay-300">
           <Button size="lg" className="px-10 h-14 text-lg font-bold" asChild>
-            <Link href="#waitlist">Join the Waitlist</Link>
+            <Link href="#waitlist">{t.hero.cta1}</Link>
           </Button>
           <Button variant="outline" size="lg" className="px-10 h-14 text-lg font-bold border-primary text-primary hover:bg-primary/10" asChild>
-            <Link href="#token">Explore VDX Token</Link>
+            <Link href="#token">{t.hero.cta2}</Link>
           </Button>
         </div>
 
         <div className="flex flex-wrap items-center justify-center bg-secondary/50 border border-border rounded-3xl p-8 backdrop-blur-sm animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
-          <StatItem target={waitlistCount} label="Waitlist members" />
+          <StatItem target={waitlistCount} label={t.hero.stat1} />
           <div className="hidden md:block w-px h-12 bg-border" />
-          <StatItem target={98} label="Carbon offset rate" unit="%" />
+          <StatItem target={98} label={t.hero.stat2} unit="%" />
           <div className="hidden md:block w-px h-12 bg-border" />
-          <StatItem target={0.001} label="Block finality" unit="s" />
+          <StatItem target={0.001} label={t.hero.stat3} unit="s" />
         </div>
       </div>
 
