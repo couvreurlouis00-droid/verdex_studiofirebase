@@ -33,6 +33,15 @@ export const Navbar: React.FC = () => {
     { name: t.nav.faq, href: '#faq' },
   ];
 
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'zh', name: '中文' },
+    { code: 'hi', name: 'हिन्दी' },
+    { code: 'ar', name: 'العربية' },
+  ];
+
   return (
     <nav
       className={cn(
@@ -65,16 +74,19 @@ export const Navbar: React.FC = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="gap-2 font-code text-[10px] uppercase">
                 <Globe className="w-4 h-4" />
-                {language}
+                {languages.find(l => l.code === language)?.name || language}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background border-border">
-              <DropdownMenuItem onClick={() => setLanguage('en')} className="cursor-pointer">
-                English
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLanguage('fr')} className="cursor-pointer">
-                Français
-              </DropdownMenuItem>
+            <DropdownMenuContent align="end" className="bg-background border-border max-h-[300px] overflow-y-auto">
+              {languages.map((lang) => (
+                <DropdownMenuItem 
+                  key={lang.code} 
+                  onClick={() => setLanguage(lang.code as any)} 
+                  className={cn("cursor-pointer", language === lang.code && "bg-primary/10 text-primary")}
+                >
+                  {lang.name}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -111,23 +123,21 @@ export const Navbar: React.FC = () => {
             </Link>
           ))}
           <div className="flex flex-col gap-3 pt-4">
-            <div className="flex gap-2 mb-2">
-              <Button 
-                variant={language === 'en' ? 'default' : 'outline'} 
-                size="sm" 
-                className="flex-1"
-                onClick={() => setLanguage('en')}
-              >
-                EN
-              </Button>
-              <Button 
-                variant={language === 'fr' ? 'default' : 'outline'} 
-                size="sm" 
-                className="flex-1"
-                onClick={() => setLanguage('fr')}
-              >
-                FR
-              </Button>
+            <div className="grid grid-cols-3 gap-2 mb-2">
+              {languages.map((lang) => (
+                <Button 
+                  key={lang.code}
+                  variant={language === lang.code ? 'default' : 'outline'} 
+                  size="sm" 
+                  className="text-[10px]"
+                  onClick={() => {
+                    setLanguage(lang.code as any);
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  {lang.code.toUpperCase()}
+                </Button>
+              ))}
             </div>
             <Button variant="outline" className="w-full" asChild>
               <Link href="#criteria" onClick={() => setMobileMenuOpen(false)}>
