@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-4">
           <Button variant="outline" size="sm" asChild>
-            <Link href="#eligibility">Check Eligibility</Link>
+            <Link href="#criteria">Eligibility Guide</Link>
           </Button>
           <Button size="sm" asChild>
             <Link href="#waitlist">Join Waitlist</Link>
@@ -85,8 +85,8 @@ export const Navbar: React.FC = () => {
           ))}
           <div className="flex flex-col gap-3 pt-4">
             <Button variant="outline" className="w-full" asChild>
-              <Link href="#eligibility" onClick={() => setMobileMenuOpen(false)}>
-                Check Eligibility
+              <Link href="#criteria" onClick={() => setMobileMenuOpen(false)}>
+                Eligibility Guide
               </Link>
             </Button>
             <Button className="w-full" asChild>

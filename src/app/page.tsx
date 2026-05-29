@@ -3,7 +3,7 @@ import { Hero } from '@/components/sections/Hero';
 import { Features } from '@/components/sections/Features';
 import { Dashboard } from '@/components/sections/Dashboard';
 import { Roadmap } from '@/components/sections/Roadmap';
-import { Eligibility } from '@/components/sections/Eligibility';
+import { EligibilityCriteria } from '@/components/sections/EligibilityCriteria';
 import { FAQ } from '@/components/sections/FAQ';
 import { Waitlist } from '@/components/sections/Waitlist';
 import { Footer } from '@/components/sections/Footer';
@@ -16,7 +16,7 @@ export default function Home() {
       <Features />
       <Dashboard />
       <Roadmap />
-      <Eligibility />
+      <EligibilityCriteria />
       <FAQ />
       <Waitlist />
       <Footer />
