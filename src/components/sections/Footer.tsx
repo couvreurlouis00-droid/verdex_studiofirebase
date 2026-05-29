@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Hexagon, Twitter, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { Hexagon } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -15,13 +15,6 @@ export const Footer: React.FC = () => {
             <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
               The carbon-neutral Layer-1 protocol.<br />Built for the planet.
             </p>
-            <div className="flex gap-4">
-              {[Twitter, Github, Linkedin, MessageCircle].map((Icon, i) => (
-                <Link key={i} href="#" className="w-10 h-10 border border-border rounded-lg flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all">
-                  <Icon className="w-5 h-5" />
-                </Link>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-6">
