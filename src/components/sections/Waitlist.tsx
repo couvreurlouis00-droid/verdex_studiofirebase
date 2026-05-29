@@ -12,8 +12,10 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { useTranslation } from '@/lib/i18n';
 
 export const Waitlist: React.FC = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -64,24 +66,18 @@ export const Waitlist: React.FC = () => {
           <div className="space-y-8">
             <div>
               <span className="font-code text-xs text-primary uppercase tracking-widest mb-4 block">
-                Early Access
+                {t.waitlist.tag}
               </span>
               <h2 className="font-headline font-bold text-4xl md:text-6xl mb-6">
-                Be first to <em className="font-body italic font-light text-primary">grow</em>
+                {t.waitlist.title} <em className="font-body italic font-light text-primary">{t.waitlist.titleItalic}</em>
               </h2>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Join over 14,678 early adopters securing their spot in the Genesis cohort. We are raising $500k to fund Phase 3 development. Secure your 2,000 VDX allocation today.
+                {t.waitlist.desc}
               </p>
             </div>
 
             <ul className="space-y-4">
-              {[
-                'Priority Genesis Allocation (2,000 VDX)',
-                'Reduced Validator Bond (-25%)',
-                'Founding Validator NFT Badge',
-                'Private Testnet Beta Access',
-                'Guaranteed spot in the first 20k members'
-              ].map((perk, i) => (
+              {t.waitlist.perks.map((perk: string, i: number) => (
                 <li key={i} className="flex items-center gap-3 text-sm text-muted-foreground">
                   <span className="text-primary font-bold">✓</span> {perk}
                 </li>
@@ -92,44 +88,41 @@ export const Waitlist: React.FC = () => {
           <div className="bg-secondary/50 border border-border rounded-3xl p-10 backdrop-blur-sm shadow-2xl relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="name" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">Full Name</Label>
+                <Label htmlFor="name" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">{t.waitlist.form.name}</Label>
                 <Input id="name" name="name" required placeholder="Satoshi Nakamoto" className="bg-background border-border h-12" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">Email Address</Label>
+                <Label htmlFor="email" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">{t.waitlist.form.email}</Label>
                 <Input id="email" name="email" type="email" required placeholder="you@greenchain.xyz" className="bg-background border-border h-12" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="walletAddress" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">Wallet Address (Optional)</Label>
+                <Label htmlFor="walletAddress" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">{t.waitlist.form.wallet}</Label>
                 <Input id="walletAddress" name="walletAddress" placeholder="0x..." className="bg-background border-border h-12" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="role" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">I'm interested as a</Label>
+                <Label htmlFor="role" className="font-code text-[10px] uppercase tracking-widest text-muted-foreground">{t.waitlist.form.interest}</Label>
                 <Select name="role" defaultValue="retail">
                   <SelectTrigger className="bg-background border-border h-12">
                     <SelectValue placeholder="Select your role…" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="validator">Validator / Node Operator</SelectItem>
-                    <SelectItem value="dev">DeFi Developer</SelectItem>
-                    <SelectItem value="buyer">Carbon Credit Buyer</SelectItem>
-                    <SelectItem value="investor">Institutional Investor</SelectItem>
-                    <SelectItem value="org">Environmental Organisation</SelectItem>
-                    <SelectItem value="retail">Retail Investor</SelectItem>
+                    <SelectItem value="validator">{t.waitlist.form.roles.validator}</SelectItem>
+                    <SelectItem value="dev">{t.waitlist.form.roles.dev}</SelectItem>
+                    <SelectItem value="retail">{t.waitlist.form.roles.retail}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex items-start gap-3 py-2">
                 <Checkbox id="agree" name="agree" required className="mt-1" />
                 <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                  I accept the terms and consent to pay the priority processing fee.
+                  {t.waitlist.form.agree}
                 </Label>
               </div>
               
               {error && <p className="text-destructive text-xs font-code">{error}</p>}
 
               <Button size="lg" className="w-full h-14 font-bold text-lg" disabled={loading}>
-                {loading ? <Loader2 className="animate-spin mr-2" /> : 'Secure My Spot →'}
+                {loading ? <Loader2 className="animate-spin mr-2" /> : t.waitlist.form.cta}
               </Button>
             </form>
           </div>

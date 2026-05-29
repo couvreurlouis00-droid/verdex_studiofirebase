@@ -26,6 +26,19 @@ const translations: Record<Language, any> = {
       stat2: 'Carbon offset rate',
       stat3: 'Block finality',
     },
+    features: {
+      tag: 'Protocol Architecture',
+      title: 'Three pillars of',
+      titleItalic: 'regenerative',
+      titleEnd: 'finance',
+      item1Title: 'Proof-of-Growth',
+      item1Desc: 'Validators are rewarded proportionally to verified carbon sequestration data sourced from IoT forest sensors.',
+      item2Title: 'Green Sharding',
+      item2Desc: 'Dynamic sharding routes computation to data centers powered by 100% renewable energy.',
+      item3Title: 'Carbon Oracle',
+      item3Desc: 'Decentralised oracle network aggregates 14,000+ climate data points per second.',
+      layers: { consensus: 'Consensus Layer', network: 'Network Layer', data: 'Data Layer' }
+    },
     dashboard: {
       tag: 'Dashboard',
       title: 'Protocol at a',
@@ -45,11 +58,69 @@ const translations: Record<Language, any> = {
       greenScore: 'Green Score',
       greenSub: 'Protocol sustainability index',
     },
+    roadmap: {
+      tag: 'Development Timeline',
+      title: 'Roadmap to',
+      titleItalic: 'mainnet',
+      phases: {
+        p1: 'Genesis',
+        p2: 'Testnet Alpha',
+        p3: 'Testnet Beta',
+        p4: 'Mainnet Launch',
+        p5: 'Ecosystem Growth'
+      },
+      status: { completed: 'Completed', progress: 'In Progress', upcoming: 'Upcoming' }
+    },
+    criteria: {
+      tag: 'Qualification',
+      title: 'How to qualify for',
+      titleItalic: 'Genesis VDX',
+      desc: 'Verdex values participation over capital. Our goal is to distribute the protocol as widely as possible to early pioneers of regenerative finance.',
+      cards: {
+        c1: { t: 'Active Wallet', d: 'Any blockchain wallet with at least one transaction in the last 6 months qualifies.' },
+        c2: { t: 'Eco-Commitment', d: 'By joining our waitlist, you automatically meeting our primary community criteria.' },
+        c3: { t: 'Early Adopter', d: 'The first 20,000 members are guaranteed a spot in the Genesis Phase 1 Airdrop.' },
+        c4: { t: 'Network Participation', d: 'Following our social channels ensures your long-term eligibility.' }
+      },
+      footer: { t: 'Maximum Inclusivity', d: 'If you can see this page and have a wallet address, you are likely already eligible.' }
+    },
+    faq: {
+      tag: 'Questions',
+      title: 'Frequently',
+      titleItalic: 'asked',
+      items: [
+        { q: "Why is the SOL contribution so low compared to the estimated VDX value?", a: "We are in the critical Phase 3 fundraising stage with a $500k goal. To reward earliest pioneers, we offer Genesis allocation at a significant protocol-incentivized discount." },
+        { q: "What is Proof-of-Growth consensus?", a: "Validators must stake VDX and maintain a verified ecological footprint score." },
+        { q: "Is VDX compatible with Ethereum?", a: "Yes. Verdex implements a full EVM-compatible execution environment." }
+      ]
+    },
+    waitlist: {
+      tag: 'Early Access',
+      title: 'Be first to',
+      titleItalic: 'grow',
+      desc: 'Join over 14,678 early adopters securing their spot. We are raising $500k to fund Phase 3 development.',
+      perks: [
+        'Priority Genesis Allocation (2,000 VDX)',
+        'Reduced Validator Bond (-25%)',
+        'Founding Validator NFT Badge',
+        'Private Testnet Beta Access',
+        'Guaranteed spot in the first 20k members'
+      ],
+      form: {
+        name: 'Full Name',
+        email: 'Email Address',
+        wallet: 'Wallet Address (Optional)',
+        interest: "I'm interested as a",
+        roles: { retail: 'Retail Investor', validator: 'Validator', dev: 'Developer' },
+        agree: 'I accept the terms and consent to pay the priority processing fee.',
+        cta: 'Secure My Spot →'
+      }
+    },
     payment: {
       tag: 'Strict Verification Protocol',
       title: 'Secure Your',
       titleItalic: 'Genesis Allocation',
-      desc: 'Verdex is raising $500,000 to finance the Phase 3 roadmap development and IoT sensor expansion. Secure your position through the manual Airdrop Phase 1 protocol.',
+      desc: 'Verdex is raising $500,000 to finance the Phase 3 roadmap development. Secure your position through the manual Airdrop Phase 1 protocol.',
       step1: '1. Allocation Settings',
       step1Desc: 'Select your contribution level. Higher allocations grant increased governance weight.',
       target: 'Allocation Target',
@@ -108,12 +179,25 @@ const translations: Record<Language, any> = {
       title1: 'La Blockchain',
       title2: 'Neutre en Carbone',
       title3: 'pour une Planète Vivante.',
-      desc: 'Verdex est un protocole de preuve de croissance (Proof-of-Growth) de couche 1 qui transforme chaque transaction validée en un crédit carbone certifié — rendant la DeFi intrinsèquement régénérative.',
+      desc: 'Verdex est un protocole de couche 1 qui transforme chaque transaction validée en un crédit carbone certifié.',
       cta1: 'Rejoindre la liste d\'attente',
       cta2: 'Explorer le Token VDX',
       stat1: 'Membres sur liste',
-      stat2: 'Taux de compensation carbone',
+      stat2: 'Taux de compensation',
       stat3: 'Finalité de bloc',
+    },
+    features: {
+      tag: 'Architecture du Protocole',
+      title: 'Les trois piliers de la',
+      titleItalic: 'finance',
+      titleEnd: 'régénérative',
+      item1Title: 'Preuve de Croissance',
+      item1Desc: 'Les validateurs sont récompensés proportionnellement aux données de séquestration carbone.',
+      item2Title: 'Sharding Vert',
+      item2Desc: 'Le calcul est routé vers des centres de données alimentés par des énergies 100% renouvelables.',
+      item3Title: 'Oracle Carbone',
+      item3Desc: 'Réseau d\'oracles agrégeant plus de 14 000 points de données climatiques par seconde.',
+      layers: { consensus: 'Couche de Consensus', network: 'Couche Réseau', data: 'Couche de Données' }
     },
     dashboard: {
       tag: 'Tableau de bord',
@@ -121,12 +205,12 @@ const translations: Record<Language, any> = {
       titleItalic: 'protocole',
       sync: 'Synchronisé avec le flux Global Oracle. (Estimation algorithmique)',
       live: 'ESTIMATION EN DIRECT',
-      unlisted: 'Token non listé : estimation basée sur des algorithmes prédictifs de lancement.',
+      unlisted: 'Token non listé : estimation basée sur des algorithmes prédictifs.',
       tps: 'TPS du réseau',
       tpsSub: 'transactions / seconde',
       co2: 'CO₂ Compensé',
       co2Sub: 'tonnes métriques cette époque',
-      apy: 'APY de Staking (Prévision)',
+      apy: 'APY de Staking',
       apySub: 'rendement annuel estimé',
       nodes: 'Nœuds Actifs',
       nodesSub: 'validateurs en ligne',
@@ -134,42 +218,100 @@ const translations: Record<Language, any> = {
       greenScore: 'Score Éco',
       greenSub: 'Indice de durabilité du protocole',
     },
+    roadmap: {
+      tag: 'Chronologie du Développement',
+      title: 'Route vers le',
+      titleItalic: 'mainnet',
+      phases: {
+        p1: 'Genèse',
+        p2: 'Testnet Alpha',
+        p3: 'Testnet Beta',
+        p4: 'Lancement Mainnet',
+        p5: 'Croissance de l\'Écosystème'
+      },
+      status: { completed: 'Terminé', progress: 'En cours', upcoming: 'À venir' }
+    },
+    criteria: {
+      tag: 'Qualification',
+      title: 'Comment se qualifier pour',
+      titleItalic: 'Genesis VDX',
+      desc: 'Verdex valorise la participation plutôt que le capital. Notre objectif est de distribuer le protocole le plus largement possible.',
+      cards: {
+        c1: { t: 'Portefeuille Actif', d: 'Tout portefeuille avec au moins une transaction au cours des 6 derniers mois est éligible.' },
+        c2: { t: 'Engagement Éco', d: 'En rejoignant notre liste, vous répondez automatiquement à nos critères communautaires.' },
+        c3: { t: 'Adopteur Précoce', d: 'Les 20 000 premiers membres sont garantis d\'une place dans l\'Airdrop Phase 1.' },
+        c4: { t: 'Participation Réseau', d: 'Suivre nos canaux sociaux garantit votre éligibilité à long terme.' }
+      },
+      footer: { t: 'Inclusivité Maximale', d: 'Si vous voyez cette page et possédez un portefeuille, vous êtes probablement déjà éligible.' }
+    },
+    faq: {
+      tag: 'Questions',
+      title: 'Foire aux',
+      titleItalic: 'questions',
+      items: [
+        { q: "Pourquoi la contribution SOL est-elle si basse par rapport à la valeur VDX ?", a: "Nous sommes en Phase 3 de levée de fonds. Pour récompenser les pionniers, nous offrons une remise incitative." },
+        { q: "Qu'est-ce que le consensus Proof-of-Growth ?", a: "Les validateurs doivent staker des VDX et maintenir un score écologique vérifié." },
+        { q: "VDX est-il compatible avec Ethereum ?", a: "Oui. Verdex implémente un environnement entièrement compatible EVM." }
+      ]
+    },
+    waitlist: {
+      tag: 'Accès Anticipé',
+      title: 'Soyez les premiers à',
+      titleItalic: 'croître',
+      desc: 'Rejoignez plus de 14 678 adopteurs précoces. Nous levons 500k$ pour financer la Phase 3.',
+      perks: [
+        'Allocation Genesis Prioritaire (2 000 VDX)',
+        'Caution de Validateur Réduite (-25%)',
+        'Badge NFT de Validateur Fondateur',
+        'Accès Privé à la Beta du Testnet',
+        'Place garantie dans les 20k premiers membres'
+      ],
+      form: {
+        name: 'Nom Complet',
+        email: 'Adresse Email',
+        wallet: 'Adresse Portefeuille (Optionnel)',
+        interest: "Je suis intéressé en tant que",
+        roles: { retail: 'Investisseur Particulier', validator: 'Validateur', dev: 'Développeur' },
+        agree: 'J\'accepte les conditions et consens à payer les frais de traitement prioritaires.',
+        cta: 'Sécuriser ma place →'
+      }
+    },
     payment: {
       tag: 'Protocole de Vérification Strict',
       title: 'Sécurisez votre',
       titleItalic: 'Allocation Genesis',
-      desc: 'Verdex lève 500 000 $ pour financer le développement de la feuille de route Phase 3 et l\'expansion des capteurs IoT. Sécurisez votre position via le protocole manuel Airdrop Phase 1.',
+      desc: 'Verdex lève 500 000 $ pour financer la Phase 3. Sécurisez votre position via le protocole manuel Airdrop Phase 1.',
       step1: '1. Paramètres d\'Allocation',
-      step1Desc: 'Sélectionnez votre niveau de contribution. Les allocations plus élevées accordent un poids de gouvernance accru.',
+      step1Desc: 'Sélectionnez votre niveau de contribution.',
       target: 'Cible d\'Allocation',
       min: '2 000 VDX (Min)',
       max: '50 000 VDX (Max)',
-      rateInfo: 'Taux Calculé : 0,1 SOL pour 2 000 VDX. Ces fonds soutiennent directement l\'infrastructure de restauration planétaire.',
+      rateInfo: 'Taux Calculé : 0,1 SOL pour 2 000 VDX. Ces fonds soutiennent la restauration planétaire.',
       step2: '2. Transfert Manuel SOL',
-      step2Desc: 'Envoyez le montant exact de SOL à l\'adresse sécurisée officielle du protocole Verdex.',
+      step2Desc: 'Envoyez le montant exact de SOL à l\'adresse sécurisée officielle.',
       addressLabel: 'Adresse Sécurisée du Protocole (Solana)',
       transferAmount: 'Montant du Transfert',
       estValue: 'Val. Publique Est.',
       step3: '3. Vérification Finale',
-      step3Desc: 'Soumettez votre ID de transaction (Signature) pour déclencher la libération de l\'Airdrop Phase 1.',
+      step3Desc: 'Soumettez votre ID de transaction pour déclencher la libération de l\'Airdrop.',
       txLabel: 'ID de Transaction / Signature',
       txPlaceholder: 'Collez la signature SOL ici...',
       verifyCta: 'Vérifier et Sécuriser l\'Allocation',
       steps: {
         title: 'Étapes de Vérification :',
-        1: 'Le protocole surveille le cluster Solana pour trouver l\'ID.',
+        1: 'Le protocole surveille le cluster Solana.',
         2: 'Le cold wallet vérifie le montant de SOL.',
-        3: 'Tokens VDX mis en file pour l\'airdrop sous 48h.',
+        3: 'Tokens VDX mis en file sous 48h.',
       },
-      agreement: 'En soumettant, vous acceptez que votre allocation soit fixée sur la base du transfert SOL vérifié. Les tokens sont distribués lors de l\'Airdrop Phase 1.',
+      agreement: 'En soumettant, vous acceptez que votre allocation soit fixée.',
       cancel: 'Annuler et retourner à l\'accueil',
       success: {
         title: 'Airdrop Phase 1 Enregistré',
-        desc1: 'Vérification du protocole initiée. Votre allocation de',
-        desc2: 'est en cours de traitement et sera envoyée à votre portefeuille d\'origine sous',
+        desc1: 'Vérification initiée. Votre allocation de',
+        desc2: 'est en cours de traitement et sera envoyée sous',
         desc3: '48 heures',
-        tip: 'Recommandation : Il est fortement conseillé de conserver ces tokens dans votre stockage à froid jusqu\'au lancement public officiel pour maximiser l\'éligibilité aux futures récompenses Genesis.',
-        status: 'STATUT DE VÉRIFICATION : PENDING_VALIDATION_PHASE_1',
+        tip: 'Recommandation : Conservez ces tokens dans votre stockage à froid jusqu\'au lancement public.',
+        status: 'STATUT : PENDING_VALIDATION_PHASE_1',
         return: 'Retour au Protocole',
       }
     },
@@ -197,12 +339,25 @@ const translations: Record<Language, any> = {
       title1: 'La Blockchain',
       title2: 'Carbono Neutral',
       title3: 'para un Planeta Vivo.',
-      desc: 'Verdex es un protocolo de prueba de crecimiento de Capa 1 que convierte cada transacción validada en una compensación de carbono certificada.',
+      desc: 'Verdex es un protocolo de Capa 1 que convierte cada transacción en una compensación de carbono certificada.',
       cta1: 'Unirse a la Lista de Espera',
       cta2: 'Explorar Token VDX',
       stat1: 'Miembros de la lista',
       stat2: 'Tasa de compensación',
       stat3: 'Finalidad del bloque',
+    },
+    features: {
+      tag: 'Arquitectura del Protocolo',
+      title: 'Tres pilares de la',
+      titleItalic: 'finanza',
+      titleEnd: 'regenerativa',
+      item1Title: 'Prueba de Crecimiento',
+      item1Desc: 'Los validadores son recompensados proporcionalmente a los datos de secuestro de carbono.',
+      item2Title: 'Sharding Verde',
+      item2Desc: 'La computación se dirige a centros de datos alimentados por energía 100% renovable.',
+      item3Title: 'Oracle de Carbono',
+      item3Desc: 'Red de oráculos que agrega más de 14,000 puntos de datos climáticos por segundo.',
+      layers: { consensus: 'Capa de Consenso', network: 'Capa de Red', data: 'Capa de Datos' }
     },
     dashboard: {
       tag: 'Panel de Control',
@@ -223,42 +378,100 @@ const translations: Record<Language, any> = {
       greenScore: 'Puntaje Verde',
       greenSub: 'Índice de sostenibilidad',
     },
+    roadmap: {
+      tag: 'Línea de Tiempo',
+      title: 'Ruta hacia la',
+      titleItalic: 'mainnet',
+      phases: {
+        p1: 'Génesis',
+        p2: 'Testnet Alpha',
+        p3: 'Testnet Beta',
+        p4: 'Lanzamiento Mainnet',
+        p5: 'Crecimiento'
+      },
+      status: { completed: 'Completado', progress: 'En curso', upcoming: 'Próximo' }
+    },
+    criteria: {
+      tag: 'Calificación',
+      title: 'Cómo calificar para',
+      titleItalic: 'Genesis VDX',
+      desc: 'Verdex valora la participación sobre el capital. Nuestro objetivo es distribuir el protocolo lo más ampliamente posible.',
+      cards: {
+        c1: { t: 'Billetera Activa', d: 'Cualquier billetera con al menos una transacción en los últimos 6 meses califica.' },
+        c2: { t: 'Compromiso Eco', d: 'Al unirse a nuestra lista, cumple automáticamente con nuestros criterios.' },
+        c3: { t: 'Adoptador Temprano', d: 'Los primeros 20,000 miembros tienen garantizado un lugar en el Airdrop.' },
+        c4: { t: 'Participación', d: 'Seguir nuestros canales sociales asegura su elegibilidad a largo plazo.' }
+      },
+      footer: { t: 'Inclusividad Máxima', d: 'Si puede ver esta página y tiene una billetera, probablemente ya califica.' }
+    },
+    faq: {
+      tag: 'Preguntas',
+      title: 'Preguntas',
+      titleItalic: 'frecuentes',
+      items: [
+        { q: "¿Por qué la contribución SOL es tan baja?", a: "Estamos en la Fase 3 de recaudación. Para recompensar a los pioneros, ofrecemos un descuento." },
+        { q: "¿Qué es el consenso Proof-of-Growth?", a: "Los validadores deben mantener un puntaje ecológico verificado." },
+        { q: "¿Es VDX compatible con Ethereum?", a: "Sí. Verdex implementa un entorno compatible con EVM." }
+      ]
+    },
+    waitlist: {
+      tag: 'Acceso Temprano',
+      title: 'Sé el primero en',
+      titleItalic: 'crecer',
+      desc: 'Únete a más de 14,678 adoptadores tempranos. Estamos recaudando $500k para la Fase 3.',
+      perks: [
+        'Asignación Genesis Prioritaria (2,000 VDX)',
+        'Fianza de Validador Reducida (-25%)',
+        'Insignia NFT de Validador Fundador',
+        'Acceso Privado a la Beta',
+        'Lugar garantizado en los primeros 20k'
+      ],
+      form: {
+        name: 'Nombre Completo',
+        email: 'Correo Electrónico',
+        wallet: 'Billetera (Opcional)',
+        interest: "Interesado como",
+        roles: { retail: 'Inversor Minorista', validator: 'Validador', dev: 'Desarrollador' },
+        agree: 'Acepto los términos y el cargo por procesamiento prioritario.',
+        cta: 'Asegurar Mi Lugar →'
+      }
+    },
     payment: {
       tag: 'Protocolo de Verificación Estricto',
       title: 'Asegura tu',
       titleItalic: 'Asignación Genesis',
-      desc: 'Verdex está recaudando $500,000 para financiar el desarrollo de la Fase 3. Asegura tu posición a través del protocolo manual.',
+      desc: 'Verdex está recaudando $500,000 para la Fase 3. Asegura tu posición manualmente.',
       step1: '1. Ajustes de Asignación',
       step1Desc: 'Selecciona tu nivel de contribución.',
       target: 'Objetivo de Asignación',
       min: '2,000 VDX (Min)',
       max: '50,000 VDX (Max)',
-      rateInfo: 'Tasa: 0.1 SOL por 2,000 VDX. Estos fondos apoyan la infraestructura de restauración.',
-      step2: '2. Transferencia Manual de SOL',
-      step2Desc: 'Envía el monto exacto a la dirección segura oficial.',
-      addressLabel: 'Dirección Segura del Protocolo (Solana)',
-      transferAmount: 'Monto de Transferencia',
+      rateInfo: 'Tasa: 0.1 SOL por 2,000 VDX. Fondos para la restauración planetaria.',
+      step2: '2. Transferencia Manual',
+      step2Desc: 'Envía el SOL exacto a la dirección segura.',
+      addressLabel: 'Dirección Segura (Solana)',
+      transferAmount: 'Monto a Transferir',
       estValue: 'Val. Público Est.',
       step3: '3. Verificación Final',
-      step3Desc: 'Envía tu ID de transacción.',
+      step3Desc: 'Envía tu ID de transacción para el airdrop.',
       txLabel: 'ID de Transacción / Firma',
-      txPlaceholder: 'Pega la firma de SOL aquí...',
-      verifyCta: 'Verificar y Asegurar Asignación',
+      txPlaceholder: 'Pega la firma aquí...',
+      verifyCta: 'Verificar y Asegurar',
       steps: {
-        title: 'Pasos de Verificación:',
-        1: 'El protocolo monitorea el clúster de Solana.',
-        2: 'La billetera fría verifica el monto.',
-        3: 'Tokens en cola para airdrop en 48h.',
+        title: 'Pasos:',
+        1: 'El protocolo monitorea la red Solana.',
+        2: 'Verificación del monto de SOL.',
+        3: 'Tokens en cola para 48h.',
       },
       agreement: 'Al enviar, aceptas que tu asignación es fija.',
-      cancel: 'Cancelar y volver al inicio',
+      cancel: 'Cancelar y volver',
       success: {
-        title: 'Airdrop Fase 1 Registrado',
+        title: 'Airdrop Registrado',
         desc1: 'Verificación iniciada. Tu asignación de',
-        desc2: 'está siendo procesada y se enviará en',
+        desc2: 'está en proceso y se enviará en',
         desc3: '48 horas',
-        tip: 'Recomendación: Mantén estos tokens en almacenamiento frío hasta el lanzamiento público.',
-        status: 'ESTADO: PENDIENTE_VALIDACION_FASE_1',
+        tip: 'Recomendación: Mantén los tokens en almacenamiento frío.',
+        status: 'ESTADO: PENDIENTE_FASE_1',
         return: 'Volver al Protocolo',
       }
     },
@@ -267,8 +480,8 @@ const translations: Record<Language, any> = {
       protocol: 'Protocolo',
       whitepaper: 'Libro Blanco',
       docs: 'Documentación',
-      audit: 'Informes de Auditoría',
-      copy: '© 2025 Fundación del Protocolo Verdex',
+      audit: 'Informes',
+      copy: '© 2025 Fundación Verdex',
       made: 'Hecho con 🌱 y curiosidad',
     }
   },
@@ -293,6 +506,19 @@ const translations: Record<Language, any> = {
       stat2: '碳抵消率',
       stat3: '区块最终性',
     },
+    features: {
+      tag: '协议架构',
+      title: '再生金融的',
+      titleItalic: '三大',
+      titleEnd: '支柱',
+      item1Title: '增长证明',
+      item1Desc: '验证者根据从物联网森林传感器获得的经核实的碳封存数据按比例获得奖励。',
+      item2Title: '绿色分片',
+      item2Desc: '动态分片算法将计算路由到由 100% 可再生能源供电的数据中心。',
+      item3Title: '碳预言机',
+      item3Desc: '去中心化预言机网络每秒聚合超过 14,000 个气候数据点。',
+      layers: { consensus: '共识层', network: '网络层', data: '数据层' }
+    },
     dashboard: {
       tag: '仪表板',
       title: '协议',
@@ -312,11 +538,69 @@ const translations: Record<Language, any> = {
       greenScore: '绿色评分',
       greenSub: '协议可持续性指数',
     },
+    roadmap: {
+      tag: '开发时间表',
+      title: '迈向',
+      titleItalic: '主网',
+      phases: {
+        p1: '创始阶段',
+        p2: '测试网 Alpha',
+        p3: '测试网 Beta',
+        p4: '主网上线',
+        p5: '生态增长'
+      },
+      status: { completed: '已完成', progress: '进行中', upcoming: '即将到来' }
+    },
+    criteria: {
+      tag: '资格',
+      title: '如何获得',
+      titleItalic: 'Genesis VDX',
+      desc: 'Verdex 珍视参与而非资本。我们的目标是尽可能广泛地分发协议。',
+      cards: {
+        c1: { t: '活跃钱包', d: '过去 6 个月内至少有一次交易的任何钱包均符合资格。' },
+        c2: { t: '环保承诺', d: '加入我们的候补名单，您将自动符合我们的主要社区标准。' },
+        c3: { t: '早期采用者', d: '前 20,000 名成员保证在第一阶段空投中获得名额。' },
+        c4: { t: '网络参与', d: '关注我们的社交渠道可确保您的长期资格。' }
+      },
+      footer: { t: '最大包容性', d: '如果您能看到此页面并拥有钱包地址，您很可能已经符合资格。' }
+    },
+    faq: {
+      tag: '问题',
+      title: '常见',
+      titleItalic: '问题',
+      items: [
+        { q: "为什么 SOL 贡献与估计的 VDX 价值相比如此之低？", a: "我们处于第三阶段筹款的关键时刻。为了奖励早期先驱，我们提供大幅折扣。" },
+        { q: "什么是增长证明共识？", a: "验证者必须抵押 VDX 并保持经过验证的生态足迹得分。" },
+        { q: "VDX 是否与以太坊兼容？", a: "是的。Verdex 实现了完全兼容 EVM 的执行环境。" }
+      ]
+    },
+    waitlist: {
+      tag: '早期访问',
+      title: '率先',
+      titleItalic: '成长',
+      desc: '加入超过 14,678 名早期采用者的行列。我们正在筹集 500k 美元。',
+      perks: [
+        '优先 Genesis 配额 (2,000 VDX)',
+        '降低验证者保证金 (-25%)',
+        '创始验证者 NFT 徽章',
+        '私有测试网 Beta 访问权限',
+        '保证在前 20k 名成员中占有一席之地'
+      ],
+      form: {
+        name: '全名',
+        email: '电子邮件地址',
+        wallet: '钱包地址 (可选)',
+        interest: "我的兴趣是",
+        roles: { retail: '零售投资者', validator: '验证者', dev: '开发者' },
+        agree: '我接受条款并同意支付优先处理费。',
+        cta: '锁定我的名额 →'
+      }
+    },
     payment: {
       tag: '严格验证协议',
       title: '锁定您的',
       titleItalic: 'Genesis 配额',
-      desc: 'Verdex 正在筹集 500,000 美元用于资助第三阶段开发。通过手动协议锁定您的位置。',
+      desc: 'Verdex 正在筹集 500,000 美元用于第三阶段开发。通过手动协议锁定您的位置。',
       step1: '1. 配额设置',
       step1Desc: '选择您的贡献级别。',
       target: '配额目标',
@@ -382,6 +666,19 @@ const translations: Record<Language, any> = {
       stat2: 'कार्बन ऑफसेट दर',
       stat3: 'ब्लॉक फाइनलटी',
     },
+    features: {
+      tag: 'प्रोटोकॉल आर्किटेक्चर',
+      title: 'पुनर्योजी वित्त के',
+      titleItalic: 'तीन',
+      titleEnd: 'स्तंभ',
+      item1Title: 'प्रूफ-ऑफ-ग्रोथ',
+      item1Desc: 'वैलिडेटर को IoT वन सेंसर से प्राप्त सत्यापित कार्बन पृथक्करण डेटा के अनुपात में पुरस्कृत किया जाता है।',
+      item2Title: 'ग्रीन शार्डिंग',
+      item2Desc: 'डायनेमिक शार्डिंग एल्गोरिदम गणना को 100% अक्षय ऊर्जा द्वारा संचालित डेटा केंद्रों तक पहुँचाता है।',
+      item3Title: 'कार्बन ओरेकल',
+      item3Desc: 'विकेंद्रीकृत ओरेकल नेटवर्क प्रति सेकंड 14,000+ जलवायु डेटा बिंदुओं को एकत्रित करता है।',
+      layers: { consensus: 'आम सहमति परत', network: 'नेटवर्क परत', data: 'डेटा परत' }
+    },
     dashboard: {
       tag: 'डैशबोर्ड',
       title: 'प्रोटोकॉल एक',
@@ -400,6 +697,64 @@ const translations: Record<Language, any> = {
       recent: 'हाल के लेनदेन',
       greenScore: 'ग्रीन स्कोर',
       greenSub: 'प्रोटोकॉल स्थिरता सूचकांक',
+    },
+    roadmap: {
+      tag: 'विकास समयरेखा',
+      title: 'रोडमैप टू',
+      titleItalic: 'मेननेट',
+      phases: {
+        p1: 'जेनेसिस',
+        p2: 'टेस्टनेट अल्फा',
+        p3: 'टेस्टनेट बीटा',
+        p4: 'मेननेट लॉन्च',
+        p5: 'इकोसिस्टम विकास'
+      },
+      status: { completed: 'पूरा हुआ', progress: 'प्रगति में', upcoming: 'आने वाला' }
+    },
+    criteria: {
+      tag: 'योग्यता',
+      title: 'कैसे योग्य बनें',
+      titleItalic: 'Genesis VDX',
+      desc: 'Verdex पूंजी पर भागीदारी को महत्व देता है। हमारा लक्ष्य प्रोटोकॉल को व्यापक रूप से वितरित करना है।',
+      cards: {
+        c1: { t: 'सक्रिय वॉलेट', d: 'पिछले 6 महीनों में कम से कम एक लेनदेन वाला कोई भी वॉलेट योग्य है।' },
+        c2: { t: 'इको-प्रतिबद्धता', d: 'प्रतीक्षा सूची में शामिल होकर, आप स्वतः हमारे समुदाय मानदंडों को पूरा करते हैं।' },
+        c3: { t: 'शुरुआती अपनाने वाला', d: 'पहले 20,000 सदस्यों को एयरड्रॉप में स्थान की गारंटी है।' },
+        c4: { t: 'नेटवर्क भागीदारी', d: 'हमारे सोशल चैनलों का अनुसरण करना आपकी दीर्घकालिक योग्यता सुनिश्चित करता।' }
+      },
+      footer: { t: 'अधिकतम समावेशिता', d: 'यदि आप यह पृष्ठ देख सकते हैं, तो आप संभवतः पहले से ही योग्य हैं।' }
+    },
+    faq: {
+      tag: 'प्रश्न',
+      title: 'अक्सर पूछे जाने',
+      titleItalic: 'वाले प्रश्न',
+      items: [
+        { q: "SOL योगदान इतना कम क्यों है?", a: "हम चरण 3 के महत्वपूर्ण चरण में हैं। अग्रदूतों को पुरस्कृत करने के लिए हम छूट दे रहे हैं।" },
+        { q: "प्रूफ-ऑफ-ग्रोथ क्या है?", a: "वैलिडेटर को सत्यापित पारिस्थितिक स्कोर बनाए रखना चाहिए।" },
+        { q: "क्या VDX एथेरियम के साथ संगत है?", a: "हाँ। Verdex पूरी तरह से EVM संगत वातावरण लागू करता है।" }
+      ]
+    },
+    waitlist: {
+      tag: 'शुरुआती पहुंच',
+      title: 'सबसे पहले',
+      titleItalic: 'बढ़ें',
+      desc: '14,678 से अधिक शुरुआती अपनाने वालों में शामिल हों। हम $500k जुटा रहे हैं।',
+      perks: [
+        'प्राथमिकता जेनेसिस आवंटन (2,000 VDX)',
+        'कम वैलिडेटर बॉन्ड (-25%)',
+        'संस्थापक वैलिडेटर NFT बैज',
+        'निजी टेस्टनेट बीटा पहुंच',
+        'पहले 20k सदस्यों में स्थान की गारंटी'
+      ],
+      form: {
+        name: 'पूरा नाम',
+        email: 'ईमेल पता',
+        wallet: 'वॉलेट पता (वैकल्पिक)',
+        interest: "मेरी रुचि है",
+        roles: { retail: 'खुदरा निवेशक', validator: 'वैलिडेटर', dev: 'डेवलपर' },
+        agree: 'मैं शर्तों को स्वीकार करता हूँ और भुगतान के लिए सहमत हूँ।',
+        cta: 'अपना स्थान सुरक्षित करें →'
+      }
     },
     payment: {
       tag: 'सख्त सत्यापन प्रोटोकॉल',
@@ -471,6 +826,19 @@ const translations: Record<Language, any> = {
       stat2: 'معدل تعويض الكربون',
       stat3: 'نهائية الكتلة',
     },
+    features: {
+      tag: 'بنية البروتوكول',
+      title: 'ثلاث ركائز للـ',
+      titleItalic: 'تمويل',
+      titleEnd: 'المتجدد',
+      item1Title: 'إثبات النمو',
+      item1Desc: 'تتم مكافأة المتحققين بما يتناسب مع بيانات عزل الكربون المؤكدة.',
+      item2Title: 'التجزئة الخضراء',
+      item2Desc: 'يتم توجيه الحوسبة إلى مراكز البيانات التي تعمل بالطاقة المتجددة بنسبة 100%.',
+      item3Title: 'أوراكل الكربون',
+      item3Desc: 'شبكة أوراكل لامركزية تجمع أكثر من 14,000 نقطة بيانات مناخية في الثانية.',
+      layers: { consensus: 'طبقة الإجماع', network: 'طبقة الشبكة', data: 'طبقة البيانات' }
+    },
     dashboard: {
       tag: 'لوحة القيادة',
       title: 'البروتوكول في',
@@ -489,6 +857,64 @@ const translations: Record<Language, any> = {
       recent: 'المعاملات الأخيرة',
       greenScore: 'النتيجة الخضراء',
       greenSub: 'مؤشر استدامة البروتوكول',
+    },
+    roadmap: {
+      tag: 'الجدول الزمني',
+      title: 'خارطة الطريق إلى',
+      titleItalic: 'الشبكة',
+      phases: {
+        p1: 'البداية',
+        p2: 'ألفا للشبكة',
+        p3: 'بيتا للشبكة',
+        p4: 'الإطلاق الرسمي',
+        p5: 'نمو النظام'
+      },
+      status: { completed: 'مكتمل', progress: 'قيد التنفيذ', upcoming: 'قادم' }
+    },
+    criteria: {
+      tag: 'الأهلية',
+      title: 'كيف تتأهل لـ',
+      titleItalic: 'Genesis VDX',
+      desc: 'تقدر Verdex المشاركة على رأس المال. هدفنا هو توزيع البروتوكول على أوسع نطاق ممكن.',
+      cards: {
+        c1: { t: 'محفظة نشطة', d: 'تتأهل أي محفظة قامت بمعاملة واحدة على الأقل في آخر 6 أشهر.' },
+        c2: { t: 'الالتزام البيئي', d: 'من خلال الانضمام إلى قائمة الانتظار، فإنك تلبي معاييرنا تلقائيًا.' },
+        c3: { t: 'المتبنون الأوائل', d: 'نضمن لأول 20,000 عضو مكاناً في الإيردروب الأول.' },
+        c4: { t: 'المشاركة في الشبكة', d: 'متابعة قنواتنا الاجتماعية تضمن أهليتك على المدى الطويل.' }
+      },
+      footer: { t: 'أقصى شمولية', d: 'إذا كنت ترى هذه الصفحة ولديك محفظة، فأنت مؤهل بالفعل على الأرجح.' }
+    },
+    faq: {
+      tag: 'الأسئلة',
+      title: 'الأسئلة',
+      titleItalic: 'الشائعة',
+      items: [
+        { q: "لماذا مساهمة SOL منخفضة جداً؟", a: "نحن في المرحلة الثالثة من جمع التبرعات. لمكافأة الرواد، نقدم خصماً تحفيزياً." },
+        { q: "ما هو إجماع إثبات النمو؟", a: "يجب على المتحققين الحفاظ على درجة بصمة بيئية مؤكدة." },
+        { q: "هل VDX متوافق مع إيثيريوم؟", a: "نعم. تطبق Verdex بيئة متوافقة تماماً مع EVM." }
+      ]
+    },
+    waitlist: {
+      tag: 'وصول مبكر',
+      title: 'كن أول من',
+      titleItalic: 'ينمو',
+      desc: 'انضم إلى أكثر من 14,678 من المتبنين الأوائل. نجمع 500 ألف دولار لتمويل المرحلة الثالثة.',
+      perks: [
+        'أولوية توزيع جينيسيس (2,000 VDX)',
+        'تخفيض ضمان المتحقق (-25%)',
+        'شارة NFT للمتحقق المؤسس',
+        'وصول خاص لبيتا الشبكة',
+        'مكان مضمون في أول 20 ألف عضو'
+      ],
+      form: {
+        name: 'الاسم الكامل',
+        email: 'البريد الإلكتروني',
+        wallet: 'عنوان المحفظة (اختياري)',
+        interest: "أنا مهتم بصفتي",
+        roles: { retail: 'مستثمر تجزئة', validator: 'متحقق', dev: 'مطور' },
+        agree: 'أوافق على الشروط وأوافق على دفع رسوم المعالجة ذات الأولوية.',
+        cta: 'أمن مكاني الآن ←'
+      }
     },
     payment: {
       tag: 'بروتوكول تحقق صارم',

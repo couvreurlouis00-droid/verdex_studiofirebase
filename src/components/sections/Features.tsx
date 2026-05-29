@@ -3,38 +3,41 @@
 import React from 'react';
 import { Diamond, Hexagon, PlusCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
-const features = [
-  {
-    icon: <Diamond className="w-8 h-8 text-primary" />,
-    title: 'Proof-of-Growth',
-    description: 'Validators are rewarded proportionally to verified carbon sequestration data sourced from IoT forest sensors and satellite imaging.',
-    tag: 'Consensus Layer'
-  },
-  {
-    icon: <Hexagon className="w-8 h-8 text-primary" />,
-    title: 'Green Sharding',
-    description: 'Dynamic sharding algorithm routes computation to data centers powered by 100% renewable energy, verified on-chain in real time.',
-    tag: 'Network Layer'
-  },
-  {
-    icon: <PlusCircle className="w-8 h-8 text-primary" />,
-    title: 'Carbon Oracle',
-    description: 'Decentralised oracle network aggregates 14,000+ climate data points per second, anchoring every block to a live environmental state.',
-    tag: 'Data Layer'
-  }
-];
+import { useTranslation } from '@/lib/i18n';
 
 export const Features: React.FC = () => {
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: <Diamond className="w-8 h-8 text-primary" />,
+      title: t.features.item1Title,
+      description: t.features.item1Desc,
+      tag: t.features.layers.consensus
+    },
+    {
+      icon: <Hexagon className="w-8 h-8 text-primary" />,
+      title: t.features.item2Title,
+      description: t.features.item2Desc,
+      tag: t.features.layers.network
+    },
+    {
+      icon: <PlusCircle className="w-8 h-8 text-primary" />,
+      title: t.features.item3Title,
+      description: t.features.item3Desc,
+      tag: t.features.layers.data
+    }
+  ];
+
   return (
     <section id="features" className="py-24 bg-gradient-to-b from-background to-secondary/30">
       <div className="container mx-auto px-6">
         <div className="mb-16">
           <span className="font-code text-xs text-primary uppercase tracking-widest mb-4 block">
-            Protocol Architecture
+            {t.features.tag}
           </span>
           <h2 className="font-headline font-bold text-4xl md:text-5xl">
-            Three pillars of <em className="font-body italic font-light text-primary">regenerative</em> finance
+            {t.features.title} <em className="font-body italic font-light text-primary">{t.features.titleItalic}</em> {t.features.titleEnd}
           </h2>
         </div>
 

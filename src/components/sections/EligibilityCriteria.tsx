@@ -3,43 +3,46 @@
 import React from 'react';
 import { ShieldCheck, Users, Globe, Zap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
-const criteria = [
-  {
-    icon: <ShieldCheck className="w-8 h-8 text-primary" />,
-    title: 'Active Wallet',
-    description: 'Any blockchain wallet (Solana, Ethereum, or EVM-compatible) with at least one transaction in the last 6 months qualifies.'
-  },
-  {
-    icon: <Globe className="w-8 h-8 text-primary" />,
-    title: 'Eco-Commitment',
-    description: 'By joining our waitlist, you automatically declare your interest in regenerative finance, meeting our primary community criteria.'
-  },
-  {
-    icon: <Users className="w-8 h-8 text-primary" />,
-    title: 'Early Adopter',
-    description: 'The first 20,000 members of the Verdex waitlist are guaranteed a spot in the Genesis Phase 1 Airdrop.'
-  },
-  {
-    icon: <Zap className="w-8 h-8 text-primary" />,
-    title: 'Network Participation',
-    description: 'Following our social channels and staying updated on the Phase 3 roadmap ensures your long-term eligibility.'
-  }
-];
+import { useTranslation } from '@/lib/i18n';
 
 export const EligibilityCriteria: React.FC = () => {
+  const { t } = useTranslation();
+
+  const criteria = [
+    {
+      icon: <ShieldCheck className="w-8 h-8 text-primary" />,
+      title: t.criteria.cards.c1.t,
+      description: t.criteria.cards.c1.d
+    },
+    {
+      icon: <Globe className="w-8 h-8 text-primary" />,
+      title: t.criteria.cards.c2.t,
+      description: t.criteria.cards.c2.d
+    },
+    {
+      icon: <Users className="w-8 h-8 text-primary" />,
+      title: t.criteria.cards.c3.t,
+      description: t.criteria.cards.c3.d
+    },
+    {
+      icon: <Zap className="w-8 h-8 text-primary" />,
+      title: t.criteria.cards.c4.t,
+      description: t.criteria.cards.c4.d
+    }
+  ];
+
   return (
     <section id="criteria" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="text-center mb-16">
           <span className="font-code text-xs text-primary uppercase tracking-widest mb-4 block">
-            Qualification
+            {t.criteria.tag}
           </span>
           <h2 className="font-headline font-bold text-4xl md:text-5xl mb-6">
-            How to qualify for <em className="font-body italic font-light text-primary">Genesis VDX</em>
+            {t.criteria.title} <em className="font-body italic font-light text-primary">{t.criteria.titleItalic}</em>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Verdex values participation over capital. Our goal is to distribute the protocol as widely as possible to early pioneers of regenerative finance.
+            {t.criteria.desc}
           </p>
         </div>
 
@@ -62,9 +65,9 @@ export const EligibilityCriteria: React.FC = () => {
         </div>
 
         <div className="mt-16 p-8 bg-primary/5 border border-primary/20 rounded-3xl text-center">
-          <h4 className="font-headline font-bold text-2xl mb-2">Maximum Inclusivity</h4>
+          <h4 className="font-headline font-bold text-2xl mb-2">{t.criteria.footer.t}</h4>
           <p className="text-muted-foreground">
-            If you can see this page and have a wallet address, you are likely already eligible. Simply register below to secure your <span className="text-primary font-bold">2,000 VDX</span> allocation.
+            {t.criteria.footer.d}
           </p>
         </div>
       </div>
