@@ -1,9 +1,10 @@
-import {genkit} from 'genkit';
-import {googleAI} from '@genkit-ai/google-genai';
+import { genkit } from 'genkit';
+import { googleAI } from '@genkit-ai/google-genai';
 
 /**
  * Genkit initialization.
- * Automatically uses GOOGLE_GENAI_API_KEY from environment variables.
+ * Uses GOOGLE_GENAI_API_KEY from environment variables.
+ * We use gemini-1.5-flash for stable text generation.
  */
 export const ai = genkit({
   plugins: [
@@ -11,5 +12,5 @@ export const ai = genkit({
       apiKey: process.env.GOOGLE_GENAI_API_KEY,
     })
   ],
-  model: 'googleai/gemini-2.5-flash',
+  model: 'googleai/gemini-1.5-flash',
 });
