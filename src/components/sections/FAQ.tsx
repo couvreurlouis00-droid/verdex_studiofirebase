@@ -5,6 +5,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const faqs = [
   {
+    q: "Why is the SOL contribution so low compared to the estimated VDX value?",
+    a: "We are currently in the critical Phase 3 fundraising stage with a $500,000 goal to finalize our IoT sensor infrastructure and mainnet readiness. To reward our earliest pioneers and ensure rapid network decentralization, we are offering the Genesis allocation at a significant protocol-incentivized discount. This 'early-backer advantage' allows you to secure a substantial stake (e.g., 50k VDX for 2.5 SOL) before the public market listing and price discovery occur."
+  },
+  {
     q: "What is Proof-of-Growth consensus?",
     a: "Proof-of-Growth (PoG) is Verdex's novel consensus mechanism where validators must stake VDX tokens and maintain a verified carbon sequestration footprint. Block rewards are weighted by a validator's verified ecological impact score, creating a direct financial incentive for environmental restoration."
   },
