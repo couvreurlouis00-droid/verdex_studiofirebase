@@ -70,7 +70,7 @@ export const Waitlist: React.FC = () => {
                 Be first to <em className="font-body italic font-light text-primary">grow</em>
               </h2>
               <p className="text-lg text-muted-foreground max-w-lg">
-                Join over 14,187 early adopters securing their spot in the Genesis cohort. We are raising $500k to fund Phase 3 development. Secure your 2,000 VDX allocation today.
+                Join over 14,678 early adopters securing their spot in the Genesis cohort. We are raising $500k to fund Phase 3 development. Secure your 2,000 VDX allocation today.
               </p>
             </div>
 

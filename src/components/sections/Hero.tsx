@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { BlockchainCanvas } from '@/components/BlockchainCanvas';
-import { getLiveWaitlistCount } from '@/lib/price-utils';
 
 const StatItem = ({ target, label, unit }: { target: number; label: string; unit?: string }) => {
   const [count, setCount] = useState(0);
@@ -35,15 +34,8 @@ const StatItem = ({ target, label, unit }: { target: number; label: string; unit
 };
 
 export const Hero: React.FC = () => {
-  const [waitlistCount, setWaitlistCount] = useState(14600);
-
-  useEffect(() => {
-    setWaitlistCount(getLiveWaitlistCount());
-    const interval = setInterval(() => {
-      setWaitlistCount(getLiveWaitlistCount());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // Static waitlist count as requested
+  const waitlistCount = 14678;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-20">
