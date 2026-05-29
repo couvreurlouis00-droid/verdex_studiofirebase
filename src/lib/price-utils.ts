@@ -24,10 +24,10 @@ export function getCurrentVDXPrice(): number {
 
 /**
  * Calculates waitlist percentage deterministically.
- * Base: 73%. Growth: 0.5% per day.
+ * Updated to start at 74.8% to match 14,960 members requirement.
  */
 export function getLiveWaitlistPercentage(): number {
-  const basePercentage = 73;
+  const basePercentage = 74.8;
   const dailyGrowth = 0.5;
   const startTime = 1739097600000; // Fixed reference: Feb 9, 2025
   const now = Date.now();
