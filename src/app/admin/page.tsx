@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar } from '@/components/sections/Navbar';
 import { Footer } from '@/components/sections/Footer';
 import { Button } from '@/components/ui/button';
@@ -9,60 +8,43 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useAuth, useFirestore, useCollection } from '@/firebase';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { collection, query, orderBy } from 'firebase/firestore';
 import { useTranslation } from '@/lib/i18n';
 import { Loader2, Users, Database, Shield, LayoutDashboard, LogOut, Zap } from 'lucide-react';
 
 const ADMIN_EMAIL = "louloucvrr@gmail.com";
+const ADMIN_PASS = "Louis@911073";
 
 export default function AdminPage() {
   const { t } = useTranslation();
-  const auth = useAuth();
-  const firestore = useFirestore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    return auth.onAuthStateChanged((u) => {
-      if (u && u.email === ADMIN_EMAIL) {
-        setUser(u);
-      } else {
-        setUser(null);
-      }
-    });
-  }, [auth]);
+  // Static mock data for demo since DB is disabled
+  const mockEntries = [
+    { id: '1', name: 'Dr. Elena Vance', email: 'elena@mit.edu', role: 'validator', walletAddress: '0x71C...3d12', createdAt: new Date() },
+    { id: '2', name: 'Marcus Thorne', email: 'marcus@eth.org', role: 'dev', walletAddress: '0x123...abcD', createdAt: new Date() },
+  ];
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email !== ADMIN_EMAIL) {
-      alert("Access Denied: Restricted to Administrator email.");
-      return;
-    }
     setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err: any) {
-      alert("Login Failed: " + err.message);
-    } finally {
+    setTimeout(() => {
+      if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
+        setIsLoggedIn(true);
+      } else {
+        alert("Invalid credentials.");
+      }
       setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleLogout = () => {
-    signOut(auth);
+    setIsLoggedIn(false);
   };
 
-  const waitlistQuery = React.useMemo(() => {
-    return query(collection(firestore, 'waitlist'), orderBy('createdAt', 'desc'));
-  }, [firestore]);
-
-  const { data: entries, loading: dataLoading } = useCollection(waitlistQuery);
-
-  if (!user) {
+  if (!isLoggedIn) {
     return (
       <main className="min-h-screen bg-background flex flex-col">
         <Navbar />
@@ -113,10 +95,10 @@ export default function AdminPage() {
   }
 
   const stats = {
-    total: entries?.length || 0,
-    validators: entries?.filter(e => e.role === 'validator').length || 0,
-    developers: entries?.filter(e => e.role === 'dev').length || 0,
-    investors: entries?.filter(e => e.role === 'retail').length || 0,
+    total: 14678,
+    validators: 1200,
+    developers: 850,
+    investors: 12628,
   };
 
   return (
@@ -128,7 +110,7 @@ export default function AdminPage() {
             <h1 className="font-headline font-bold text-4xl mb-2 flex items-center gap-3">
               <LayoutDashboard className="text-primary" /> {t.admin?.title || 'Protocol Dashboard'}
             </h1>
-            <p className="text-muted-foreground">{t.admin?.subtitle || 'Waitlist Management'}</p>
+            <p className="text-muted-foreground">{t.admin?.subtitle || 'Static View (Database Offline)'}</p>
           </div>
           <Button variant="outline" onClick={handleLogout} className="gap-2">
             <LogOut className="w-4 h-4" /> Sign Out
@@ -142,7 +124,7 @@ export default function AdminPage() {
                 <div className="p-3 bg-primary/10 rounded-xl text-primary"><Users className="w-6 h-6" /></div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.total || 'Total'}</p>
-                  <p className="text-3xl font-headline font-bold">{stats.total}</p>
+                  <p className="text-3xl font-headline font-bold">{stats.total.toLocaleString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -153,7 +135,7 @@ export default function AdminPage() {
                 <div className="p-3 bg-accent/10 rounded-xl text-accent"><Shield className="w-6 h-6" /></div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.validators || 'Validators'}</p>
-                  <p className="text-3xl font-headline font-bold">{stats.validators}</p>
+                  <p className="text-3xl font-headline font-bold">{stats.validators.toLocaleString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -164,7 +146,7 @@ export default function AdminPage() {
                 <div className="p-3 bg-blue-500/10 rounded-xl text-blue-500"><Database className="w-6 h-6" /></div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.developers || 'Devs'}</p>
-                  <p className="text-3xl font-headline font-bold">{stats.developers}</p>
+                  <p className="text-3xl font-headline font-bold">{stats.developers.toLocaleString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -175,7 +157,7 @@ export default function AdminPage() {
                 <div className="p-3 bg-green-500/10 rounded-xl text-green-500"><Zap className="w-6 h-6" /></div>
                 <div>
                   <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.investors || 'Investors'}</p>
-                  <p className="text-3xl font-headline font-bold">{stats.investors}</p>
+                  <p className="text-3xl font-headline font-bold">{stats.investors.toLocaleString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -184,50 +166,41 @@ export default function AdminPage() {
 
         <Card className="bg-secondary/20 border-border overflow-hidden">
           <CardHeader className="border-b border-border bg-secondary/10">
-            <CardTitle className="text-xl font-headline font-bold">Recent Signups</CardTitle>
+            <CardTitle className="text-xl font-headline font-bold">Recent Signups (Example Data)</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
-            {dataLoading ? (
-              <div className="p-12 flex justify-center"><Loader2 className="animate-spin text-primary" /></div>
-            ) : (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-border hover:bg-transparent">
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.name || 'Name'}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.email || 'Email'}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.role || 'Role'}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.wallet || 'Wallet'}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.date || 'Date'}</TableHead>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-border hover:bg-transparent">
+                    <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.name || 'Name'}</TableHead>
+                    <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.email || 'Email'}</TableHead>
+                    <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.role || 'Role'}</TableHead>
+                    <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.wallet || 'Wallet'}</TableHead>
+                    <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.date || 'Date'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {mockEntries.map((entry: any) => (
+                    <TableRow key={entry.id} className="border-border hover:bg-secondary/10">
+                      <TableCell className="font-medium">{entry.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{entry.email}</TableCell>
+                      <TableCell>
+                        <span className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-md border border-primary/20">
+                          {entry.role}
+                        </span>
+                      </TableCell>
+                      <TableCell className="font-code text-[10px] truncate max-w-[120px]">
+                        {entry.walletAddress || 'N/A'}
+                      </TableCell>
+                      <TableCell className="text-xs text-muted-foreground">
+                        {entry.createdAt.toLocaleDateString()}
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {entries?.map((entry: any) => (
-                      <TableRow key={entry.id} className="border-border hover:bg-secondary/10">
-                        <TableCell className="font-medium">{entry.name}</TableCell>
-                        <TableCell className="text-muted-foreground">{entry.email}</TableCell>
-                        <TableCell>
-                          <span className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase rounded-md border border-primary/20">
-                            {entry.role}
-                          </span>
-                        </TableCell>
-                        <TableCell className="font-code text-[10px] truncate max-w-[120px]">
-                          {entry.walletAddress || 'N/A'}
-                        </TableCell>
-                        <TableCell className="text-xs text-muted-foreground">
-                          {entry.createdAt?.toDate ? entry.createdAt.toDate().toLocaleDateString() : 'N/A'}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                    {entries?.length === 0 && (
-                      <TableRow>
-                        <TableCell colSpan={5} className="text-center py-12 text-muted-foreground">No entries found.</TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       </section>
