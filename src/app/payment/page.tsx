@@ -9,13 +9,12 @@ import { Footer } from '@/components/sections/Footer';
 import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { ShieldCheck, Zap, Loader2, CheckCircle2, Info, Copy, Check } from 'lucide-react';
+import { ShieldCheck, Zap, Loader2, CheckCircle2, Info, Copy, Check, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { getCurrentVDXPrice } from '@/lib/price-utils';
 import { useTranslation } from '@/lib/i18n';
 
 const DESTINATION_WALLET = "5caRrEq62WNwiDuvLUed8QxhqpJgLk11fBH4bHgE7yDG";
-// 2000 VDX = 0.1 SOL -> 1 VDX = 0.00005 SOL
 const VDX_TO_SOL_RATE = 0.1 / 2000; 
 
 export default function PaymentPage() {
@@ -61,7 +60,6 @@ export default function PaymentPage() {
     }
 
     setLoading(true);
-    // Simulate Strict Protocol Verification
     setTimeout(() => {
       setSuccess(true);
       setLoading(false);
@@ -116,9 +114,16 @@ export default function PaymentPage() {
           <h1 className="font-headline font-bold text-4xl md:text-6xl mb-6">
             {t.payment.title} <em className="font-body italic font-light text-primary">{t.payment.titleItalic}</em>
           </h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
             {t.payment.desc}
           </p>
+          
+          <div className="bg-destructive/10 border border-destructive/20 p-4 rounded-2xl flex items-start gap-4 text-left max-w-2xl mx-auto">
+            <AlertCircle className="text-destructive shrink-0 mt-1" />
+            <p className="text-sm text-destructive font-medium leading-relaxed">
+              {t.payment.preLaunchNote}
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
