@@ -201,7 +201,7 @@ export default function AdminPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {entries?.map((entry) => (
+                    {entries?.map((entry: any) => (
                       <TableRow key={entry.id} className="border-border hover:bg-secondary/10">
                         <TableCell className="font-medium">{entry.name}</TableCell>
                         <TableCell className="text-muted-foreground">{entry.email}</TableCell>
@@ -214,7 +214,7 @@ export default function AdminPage() {
                           {entry.walletAddress || 'N/A'}
                         </TableCell>
                         <TableCell className="text-xs text-muted-foreground">
-                          {entry.createdAt?.toDate().toLocaleDateString() || 'N/A'}
+                          {entry.createdAt?.toDate ? entry.createdAt.toDate().toLocaleDateString() : 'N/A'}
                         </TableCell>
                       </TableRow>
                     ))}

@@ -7,23 +7,23 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Hexagon, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 import { useTranslation } from '@/lib/i18n';
+import { useToast } from '@/hooks/use-toast';
 
 export const Waitlist: React.FC = () => {
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const firestore = useFirestore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
@@ -31,8 +31,14 @@ export const Waitlist: React.FC = () => {
     const walletAddress = formData.get('walletAddress') as string;
     const agreed = formData.get('agree');
 
-    if (!agreed) return alert('Please accept the terms.');
-    if (!name || !email) return setError('Please fill in required fields.');
+    if (!agreed) {
+      toast({
+        variant: "destructive",
+        title: "Agreement Required",
+        description: "Please accept the terms to continue.",
+      });
+      return;
+    }
 
     setLoading(true);
 
@@ -47,6 +53,13 @@ export const Waitlist: React.FC = () => {
     const waitlistRef = collection(firestore, 'waitlist');
     
     addDoc(waitlistRef, data)
+      .then(() => {
+        toast({
+          title: "Success!",
+          description: "You've been added to the early access waitlist.",
+        });
+        router.push('/payment');
+      })
       .catch(async (err) => {
         const permissionError = new FirestorePermissionError({
           path: waitlistRef.path,
@@ -54,9 +67,8 @@ export const Waitlist: React.FC = () => {
           requestResourceData: data,
         });
         errorEmitter.emit('permission-error', permissionError);
+        setLoading(false);
       });
-
-    router.push('/payment');
   };
 
   return (
@@ -118,8 +130,6 @@ export const Waitlist: React.FC = () => {
                   {t.waitlist.form.agree}
                 </Label>
               </div>
-              
-              {error && <p className="text-destructive text-xs font-code">{error}</p>}
 
               <Button size="lg" className="w-full h-14 font-bold text-lg" disabled={loading}>
                 {loading ? <Loader2 className="animate-spin mr-2" /> : t.waitlist.form.cta}
