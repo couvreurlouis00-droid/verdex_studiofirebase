@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -71,13 +72,13 @@ export default function AdminPage() {
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="text-primary w-8 h-8" />
               </div>
-              <CardTitle className="text-2xl font-headline font-bold">{t.admin.login}</CardTitle>
+              <CardTitle className="text-2xl font-headline font-bold">{t.admin?.login || 'Admin Login'}</CardTitle>
               <CardDescription>Restricted Area</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">{t.admin.email}</Label>
+                  <Label htmlFor="email">{t.admin?.email || 'Email'}</Label>
                   <Input 
                     id="email" 
                     type="email" 
@@ -89,7 +90,7 @@ export default function AdminPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">{t.admin.password}</Label>
+                  <Label htmlFor="password">{t.admin?.password || 'Password'}</Label>
                   <Input 
                     id="password" 
                     type="password"
@@ -100,7 +101,7 @@ export default function AdminPage() {
                   />
                 </div>
                 <Button className="w-full h-12 font-bold" disabled={loading}>
-                  {loading ? <Loader2 className="animate-spin" /> : t.admin.signIn}
+                  {loading ? <Loader2 className="animate-spin" /> : (t.admin?.signIn || 'Sign In')}
                 </Button>
               </form>
             </CardContent>
@@ -125,9 +126,9 @@ export default function AdminPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12">
           <div>
             <h1 className="font-headline font-bold text-4xl mb-2 flex items-center gap-3">
-              <LayoutDashboard className="text-primary" /> {t.admin.title}
+              <LayoutDashboard className="text-primary" /> {t.admin?.title || 'Protocol Dashboard'}
             </h1>
-            <p className="text-muted-foreground">{t.admin.subtitle}</p>
+            <p className="text-muted-foreground">{t.admin?.subtitle || 'Waitlist Management'}</p>
           </div>
           <Button variant="outline" onClick={handleLogout} className="gap-2">
             <LogOut className="w-4 h-4" /> Sign Out
@@ -140,7 +141,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-primary/10 rounded-xl text-primary"><Users className="w-6 h-6" /></div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin.stats.total}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.total || 'Total'}</p>
                   <p className="text-3xl font-headline font-bold">{stats.total}</p>
                 </div>
               </div>
@@ -151,7 +152,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-accent/10 rounded-xl text-accent"><Shield className="w-6 h-6" /></div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin.stats.validators}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.validators || 'Validators'}</p>
                   <p className="text-3xl font-headline font-bold">{stats.validators}</p>
                 </div>
               </div>
@@ -162,7 +163,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-blue-500/10 rounded-xl text-blue-500"><Database className="w-6 h-6" /></div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin.stats.developers}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.developers || 'Devs'}</p>
                   <p className="text-3xl font-headline font-bold">{stats.developers}</p>
                 </div>
               </div>
@@ -173,7 +174,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-green-500/10 rounded-xl text-green-500"><Zap className="w-6 h-6" /></div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin.stats.investors}</p>
+                  <p className="text-xs text-muted-foreground uppercase font-code tracking-widest">{t.admin?.stats?.investors || 'Investors'}</p>
                   <p className="text-3xl font-headline font-bold">{stats.investors}</p>
                 </div>
               </div>
@@ -193,11 +194,11 @@ export default function AdminPage() {
                 <Table>
                   <TableHeader>
                     <TableRow className="border-border hover:bg-transparent">
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin.table.name}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin.table.email}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin.table.role}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin.table.wallet}</TableHead>
-                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin.table.date}</TableHead>
+                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.name || 'Name'}</TableHead>
+                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.email || 'Email'}</TableHead>
+                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.role || 'Role'}</TableHead>
+                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.wallet || 'Wallet'}</TableHead>
+                      <TableHead className="font-code text-[10px] uppercase tracking-widest">{t.admin?.table?.date || 'Date'}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
