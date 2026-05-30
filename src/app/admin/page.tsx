@@ -12,7 +12,7 @@ import { useAuth, useFirestore, useCollection } from '@/firebase';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { collection, query, orderBy } from 'firebase/firestore';
 import { useTranslation } from '@/lib/i18n';
-import { Loader2, Users, Database, Shield, LayoutDashboard, LogOut } from 'lucide-react';
+import { Loader2, Users, Database, Shield, LayoutDashboard, LogOut, Zap } from 'lucide-react';
 
 const ADMIN_EMAIL = "louloucvrr@gmail.com";
 
